@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Alcântara & Mendes | Advocacia de Elite</title>
+    <meta name="description" content="Escritório de advocacia premium com 25 anos de excelência em Direito Empresarial, Cível, Trabalhista e Imobiliário. Agende sua consultoria.">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{--gold:#c6a23b;--gold-light:#e0c87c;--gold-dark:#9e7f28;--navy:#0a1a2f;--navy-light:#1e3a5f;--sand:#f5f0e6;--charcoal:#2c3e4e;--bg:#fefcf8}
+        html{scroll-behavior:smooth}
+        body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:#1e2a3e;overflow-x:hidden}
+
+        /* Texture overlay */
+        .bg-texture{position:fixed;inset:0;background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgdmlld0JveD0iMCAwIDQwIDQwIj48cGF0aCBmaWxsPSIjYzZhMjNiIiBmaWxsLW9wYWNpdHk9IjAuMDMiIGQ9Ik0wIDBoNDB2NDBIMHoiLz48L3N2Zz4=');pointer-events:none;z-index:0}
+
+        .container{max-width:1280px;margin:0 auto;padding:0 2rem;position:relative;z-index:2}
+
+        /* --- NAV --- */
+        nav{display:flex;justify-content:space-between;align-items:center;padding:1.8rem 0 1.5rem;flex-wrap:wrap;border-bottom:1px solid rgba(198,162,59,.3)}
+        .logo{font-size:1.8rem;font-weight:800;letter-spacing:-.5px;color:var(--navy)}
+        .logo span{color:var(--gold);font-weight:300;font-family:'Playfair Display',serif;margin-right:2px}
+        .logo small{font-size:.7rem;font-weight:400;display:block;letter-spacing:2px;color:var(--charcoal)}
+        .nav-links a{color:var(--navy);margin-left:2.5rem;text-decoration:none;font-weight:600;transition:.2s;font-size:.95rem;position:relative}
+        .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--gold);transition:width .3s}
+        .nav-links a:hover{color:var(--gold)}
+        .nav-links a:hover::after{width:100%}
+
+        /* --- HERO --- */
+        .hero{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;min-height:85vh;gap:3rem;padding:3rem 0 4rem}
+        .hero-content{flex:1.2}
+        .badge{display:inline-block;background:rgba(198,162,59,.12);padding:.4rem 1rem;border-radius:40px;font-size:.75rem;font-weight:700;color:var(--gold);letter-spacing:1px;margin-bottom:1.5rem;border-left:2px solid var(--gold)}
+        .hero h1{font-size:3.6rem;font-weight:800;line-height:1.15;color:var(--navy);margin-bottom:1.2rem}
+        .hero h1 em{color:var(--gold);font-style:italic;font-family:'Playfair Display',serif;font-weight:400}
+        .typing-wrapper{font-size:1.5rem;font-weight:500;margin:1.2rem 0;color:var(--charcoal);display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+        .static-text{color:#4a627a}
+        #typed-text-adv{color:var(--gold);font-weight:700;border-right:2px solid var(--gold);padding-right:6px;white-space:nowrap;font-family:monospace;font-size:1.5rem}
+        .hero p{font-size:1.05rem;color:#3a546d;max-width:550px;margin:1.5rem 0;line-height:1.7}
+        .cta-group{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem}
+        .btn-primary,.btn-outline{padding:.9rem 2rem;font-weight:700;border-radius:40px;transition:.25s;text-decoration:none;display:inline-flex;align-items:center;gap:10px;font-size:.95rem;cursor:pointer}
+        .btn-primary{background:var(--navy);color:#fff;border:none;box-shadow:0 8px 18px rgba(10,26,47,.15)}
+        .btn-primary:hover{background:var(--gold);color:var(--navy);transform:translateY(-3px);box-shadow:0 12px 28px rgba(198,162,59,.3)}
+        .btn-outline{border:1px solid var(--navy);color:var(--navy);background:transparent}
+        .btn-outline:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+
+        .hero-visual{flex:1;border-radius:28px;overflow:hidden;box-shadow:0 25px 50px -12px rgba(0,0,0,.25);position:relative}
+        .hero-visual img{width:100%;height:auto;display:block;object-fit:cover;transition:transform .6s}
+        .hero-visual:hover img{transform:scale(1.03)}
+        .caption-photo{padding:.8rem;background:#fff;font-size:.8rem;color:var(--charcoal);text-align:center;border-top:1px solid #eee}
+
+        /* --- STATS --- */
+        .stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;background:var(--navy);border-radius:32px;padding:2.5rem 2rem;margin:-2rem 0 4rem;position:relative;z-index:3}
+        .stat-item{text-align:center;color:#fff}
+        .stat-number{font-size:2.8rem;font-weight:800;color:var(--gold);line-height:1}
+        .stat-label{font-size:.85rem;margin-top:.4rem;opacity:.8}
+
+        /* --- SECTIONS --- */
+        .section-title{text-align:center;font-size:2.4rem;font-weight:800;color:var(--navy);margin:4rem 0 .8rem}
+        .section-sub{text-align:center;color:var(--gold);font-weight:600;letter-spacing:1px;margin-bottom:3rem;font-size:.9rem}
+
+        /* --- PRACTICE GRID --- */
+        .practice-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2rem;margin:3rem 0}
+        .practice-card{background:#fff;border-radius:28px;padding:2.2rem 1.8rem;text-align:center;box-shadow:0 8px 20px rgba(0,0,0,.02);transition:.3s;border:1px solid rgba(198,162,59,.15);position:relative;overflow:hidden}
+        .practice-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:4px;background:linear-gradient(90deg,var(--gold),var(--gold-light));transform:scaleX(0);transition:transform .3s;transform-origin:left}
+        .practice-card:hover{transform:translateY(-8px);border-color:var(--gold);box-shadow:0 20px 40px -15px rgba(198,162,59,.2)}
+        .practice-card:hover::before{transform:scaleX(1)}
+        .practice-card .icon-wrap{width:64px;height:64px;border-radius:16px;background:rgba(198,162,59,.1);display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem}
+        .practice-card i{font-size:1.8rem;color:var(--gold)}
+        .practice-card h3{font-size:1.3rem;margin-bottom:.6rem;color:var(--navy)}
+        .practice-card p{color:#5a6e7c;font-size:.92rem;line-height:1.5}
+
+        /* --- TRANSFORM / BEFORE-AFTER --- */
+        .transform-section{background:var(--sand);border-radius:48px;padding:3.5rem 2rem;margin:5rem 0}
+        .ba-wrapper{max-width:900px;margin:0 auto}
+        .ba-title{text-align:center;font-size:1.8rem;font-weight:700;margin-bottom:2rem;color:var(--navy)}
+        .ba-slider-adv{position:relative;max-width:800px;margin:0 auto;overflow:hidden;border-radius:32px;box-shadow:0 25px 45px -10px rgba(0,0,0,.25);cursor:ew-resize;aspect-ratio:800/500}
+        .ba-slider-adv img{width:100%;height:100%;object-fit:cover;display:block;position:absolute;top:0;left:0}
+        .ba-overlay-adv{position:absolute;top:0;left:0;width:50%;height:100%;overflow:hidden;border-right:3px solid var(--gold);z-index:5}
+        .ba-overlay-adv img{width:auto;min-width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0}
+        .handle-adv{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--navy);font-weight:bold;box-shadow:0 0 0 4px #fff,0 4px 12px rgba(0,0,0,.3);pointer-events:none;z-index:20;transition:background .2s}
+        .ba-labels-adv{display:flex;justify-content:space-between;max-width:800px;margin:1.2rem auto 0;font-weight:600;color:var(--navy);font-size:.9rem}
+        .real-note{text-align:center;margin-top:1rem;font-size:.8rem;color:#6c7a89}
+
+        /* --- TEAM --- */
+        .team{display:flex;flex-wrap:wrap;gap:2.5rem;justify-content:center;margin:3rem 0 4rem}
+        .member{background:#fff;border-radius:32px;width:260px;text-align:center;padding:2rem 1.2rem;box-shadow:0 10px 25px rgba(0,0,0,.03);transition:.3s;border:1px solid #e9e2d4}
+        .member:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(0,0,0,.08);border-color:var(--gold)}
+        .member img{width:140px;height:140px;border-radius:50%;object-fit:cover;margin-bottom:1rem;border:3px solid var(--gold);padding:3px;transition:transform .3s}
+        .member:hover img{transform:scale(1.05)}
+        .member h3{color:var(--navy);font-weight:700;font-size:1.1rem}
+        .member p{color:var(--gold);font-weight:500;font-size:.85rem;margin-top:.3rem}
+
+        /* --- TESTIMONIAL --- */
+        .testimonial-adv{background:linear-gradient(135deg,var(--navy),var(--navy-light));color:#fff;border-radius:48px;padding:4rem 3rem;margin:4rem 0;text-align:center;position:relative;overflow:hidden}
+        .testimonial-adv::before{content:'❝';position:absolute;top:-20px;left:40px;font-size:12rem;color:rgba(198,162,59,.08);font-family:serif;line-height:1}
+        .testimonial-adv p{font-size:1.3rem;font-style:italic;max-width:800px;margin:0 auto;line-height:1.7;position:relative}
+        .testimonial-adv h4{margin-top:1.5rem;color:var(--gold);font-size:1rem}
+
+        /* --- CONTACT CTA --- */
+        .contact-cta{text-align:center;margin:4rem 0;padding:3rem 2rem;background:linear-gradient(135deg,rgba(198,162,59,.08),rgba(198,162,59,.02));border-radius:48px;border:1px solid rgba(198,162,59,.2)}
+        .contact-cta h2{font-size:2rem;color:var(--navy);margin-bottom:1rem}
+        .contact-cta p{color:#5a6e7c;max-width:600px;margin:0 auto 2rem;line-height:1.6}
+        .btn-whatsapp{background:#25d366;color:#fff;padding:1rem 2.5rem;border-radius:40px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:10px;font-size:1.05rem;transition:.3s;border:none;cursor:pointer;box-shadow:0 8px 20px rgba(37,211,102,.25)}
+        .btn-whatsapp:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(37,211,102,.35);background:#20c05c}
+
+        /* --- FOOTER --- */
+        footer{border-top:1px solid rgba(0,0,0,.05);padding:2.5rem 0;text-align:center;color:#5a6e7c;font-size:.9rem}
+        footer p+p{margin-top:.6rem}
+
+        /* --- SCROLL REVEAL --- */
+        .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}
+        .reveal.visible{opacity:1;transform:translateY(0)}
+
+        /* --- RESPONSIVE --- */
+        @media(max-width:900px){
+            .stats-bar{grid-template-columns:repeat(2,1fr);gap:1rem;padding:2rem 1.5rem}
+            .stat-number{font-size:2.2rem}
+        }
+        @media(max-width:800px){
+            .hero h1{font-size:2.3rem}
+            .typing-wrapper,#typed-text-adv{font-size:1.2rem}
+            .container{padding:0 1.2rem}
+            .nav-links a{margin-left:1.2rem;font-size:.85rem}
+            .hero{min-height:auto;padding:2rem 0}
+            .section-title{font-size:1.8rem}
+        }
+        @media(max-width:600px){
+            .stats-bar{grid-template-columns:1fr 1fr;margin-top:1rem}
+            .hero-visual{margin-top:1rem}
+            .team{gap:1.5rem}
+            .member{width:100%;max-width:300px}
+            .testimonial-adv{padding:2.5rem 1.5rem}
+            .ba-labels-adv{flex-direction:column;gap:.5rem;text-align:center}
+        }
+
+        /* Cursor blink */
+        @keyframes blinkGold{0%,100%{border-color:var(--gold)}50%{border-color:transparent}}
+        .cursor-blink-adv{animation:blinkGold .8s step-end infinite}
+    </style>
+</head>
+<body>
+<div class="bg-texture"></div>
+<div class="container">
+    <nav>
+        <div class="logo">
+            <span>✦</span> ALCÂNTARA & MENDES
+            <small>ADVOGADOS ASSOCIADOS</small>
+        </div>
+        <div class="nav-links">
+            <a href="#atuacao">Atuação</a>
+            <a href="#equipe">Equipe</a>
+            <a href="#resultados">Resultados</a>
+            <a href="#contato">Contato</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="badge"><i class="fas fa-gavel"></i> EXCELÊNCIA JURÍDICA · 25 ANOS</div>
+            <h1>Estratégia que <em>transforma</em><br>desafios em vitórias.</h1>
+            <div class="typing-wrapper">
+                <span class="static-text">Atuação em:</span>
+                <span id="typed-text-adv" class="cursor-blink-adv"></span>
+            </div>
+            <p>Direito empresarial, cível e contencioso de alta complexidade. Nosso escritório une tradição e modernidade para entregar soluções jurídicas precisas e resultados concretos.</p>
+            <div class="cta-group">
+                <a href="#contato" class="btn-primary"><i class="fas fa-calendar-alt"></i> Agendar Consultoria</a>
+                <a href="#resultados" class="btn-outline"><i class="fas fa-building"></i> Conheça o Escritório</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <img src="images/hero-lawyers.png" alt="Dr. Marcus Alcântara e Dra. Renata Mendes em reunião no escritório">
+            <div class="caption-photo"><i class="fas fa-camera"></i> Dra. Renata Mendes e Dr. Marcus Alcântara — Sede: Av. Paulista, 2000</div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar reveal">
+        <div class="stat-item"><div class="stat-number" data-target="25">0</div><div class="stat-label">Anos de Atuação</div></div>
+        <div class="stat-item"><div class="stat-number" data-target="3200">0</div><div class="stat-label">Casos Resolvidos</div></div>
+        <div class="stat-item"><div class="stat-number" data-target="97">0</div><div class="stat-label">% Satisfação</div></div>
+        <div class="stat-item"><div class="stat-number" data-target="15">0</div><div class="stat-label">Advogados Especializados</div></div>
+    </div>
+
+    <!-- Áreas de Atuação -->
+    <div id="atuacao">
+        <h2 class="section-title reveal">Soluções jurídicas sob medida</h2>
+        <div class="section-sub reveal">EXCELÊNCIA RECONHECIDA NAS PRINCIPAIS ÁREAS DO DIREITO</div>
+        <div class="practice-grid">
+            <div class="practice-card reveal">
+                <div class="icon-wrap"><i class="fas fa-chart-line"></i></div>
+                <h3>Direito Empresarial</h3>
+                <p>Contratos, fusões, aquisições e governança corporativa para empresas em crescimento.</p>
+            </div>
+            <div class="practice-card reveal">
+                <div class="icon-wrap"><i class="fas fa-balance-scale"></i></div>
+                <h3>Cível & Consumidor</h3>
+                <p>Defesa estratégica com alto índice de êxito em causas de alta complexidade.</p>
+            </div>
+            <div class="practice-card reveal">
+                <div class="icon-wrap"><i class="fas fa-briefcase"></i></div>
+                <h3>Trabalhista</h3>
+                <p>Gestão de riscos, compliance trabalhista e consultoria preventiva empresarial.</p>
+            </div>
+            <div class="practice-card reveal">
+                <div class="icon-wrap"><i class="fas fa-home"></i></div>
+                <h3>Direito Imobiliário</h3>
+                <p>Regularização fundiária, contratos imobiliários e incorporações seguras.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Antes e Depois -->
+    <div class="transform-section reveal" id="resultados">
+        <div class="ba-wrapper">
+            <div class="ba-title"><i class="fas fa-hard-hat"></i> Antes & Depois: Nossa sede revitalizada</div>
+            <div class="ba-slider-adv" id="sliderAdv">
+                <img src="images/office-after.png" alt="Escritório reformado com design premium">
+                <div class="ba-overlay-adv" id="overlayAdv">
+                    <img src="images/office-before.png" alt="Antiga estrutura do escritório">
+                </div>
+                <div class="handle-adv" id="handleAdv"><i class="fas fa-arrows-alt-h"></i></div>
+            </div>
+            <div class="ba-labels-adv">
+                <span><i class="fas fa-building"></i> Antes: ambiente tradicional</span>
+                <span><i class="fas fa-gem"></i> Depois: escritório premium</span>
+            </div>
+            <div class="real-note"><i class="fas fa-hand-pointer"></i> Clique e arraste para comparar a transformação (reforma 2024).</div>
+        </div>
+    </div>
+
+    <!-- Equipe -->
+    <div id="equipe">
+        <h2 class="section-title reveal">Nossa equipe</h2>
+        <div class="section-sub reveal">PROFISSIONAIS COM TRAJETÓRIA SÓLIDA E COMPROMISSO COM O CLIENTE</div>
+        <div class="team">
+            <div class="member reveal">
+                <img src="images/marcus.png" alt="Dr. Marcus Alcântara">
+                <h3>Dr. Marcus Alcântara</h3>
+                <p>Sócio-fundador | Empresarial</p>
+            </div>
+            <div class="member reveal">
+                <img src="images/renata.png" alt="Dra. Renata Mendes">
+                <h3>Dra. Renata Mendes</h3>
+                <p>Sócia | Direito Cível e Contratos</p>
+            </div>
+            <div class="member reveal">
+                <img src="images/felipe.png" alt="Dr. Felipe Torres">
+                <h3>Dr. Felipe Torres</h3>
+                <p>Trabalhista e Compliance</p>
+            </div>
+            <div class="member reveal">
+                <img src="images/camila.png" alt="Dra. Camila Veiga">
+                <h3>Dra. Camila Veiga</h3>
+                <p>Direito Imobiliário e Ambiental</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonial -->
+    <div class="testimonial-adv reveal">
+        <i class="fas fa-quote-left" style="font-size:2rem;color:var(--gold);margin-bottom:1rem;display:block"></i>
+        <p>"Profissionalismo e estratégia impecáveis. O escritório Alcântara & Mendes conseguiu reverter uma causa complexa com agilidade e total segurança jurídica. Recomendo sem reservas."</p>
+        <h4>— Carlos E. Soares, CEO do Grupo Nexus</h4>
+    </div>
+
+    <!-- Contact CTA -->
+    <div class="contact-cta reveal" id="contato">
+        <h2>Fale com nosso time jurídico</h2>
+        <p>Agende uma consultoria personalizada e descubra como podemos proteger seus interesses com excelência e discrição.</p>
+        <a href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20agendar%20uma%20consultoria." class="btn-whatsapp" target="_blank">
+            <i class="fab fa-whatsapp" style="font-size:1.3rem"></i> Falar pelo WhatsApp
+        </a>
+    </div>
+
+    <footer>
+        <p><i class="fas fa-scale-balanced"></i> Alcântara & Mendes Advogados | Ética, Discrição e Resultados</p>
+        <p>© 2025 · Todos os direitos reservados</p>
+    </footer>
+</div>
+
+<script>
+// --- Typing animation ---
+const advWords=["Direito Empresarial","Contencioso Estratégico","Contratos de Alta Complexidade","Compliance & Governança","Direito Imobiliário"];
+let idx=0,ch=0,del=false;
+const typedSpan=document.getElementById("typed-text-adv");
+function typeWriter(){
+    let w=advWords[idx];
+    if(del){ch--;typedSpan.textContent=w.substring(0,ch)}
+    else{ch++;typedSpan.textContent=w.substring(0,ch)}
+    if(!del&&ch===w.length){del=true;setTimeout(typeWriter,1800);return}
+    if(del&&ch===0){del=false;idx=(idx+1)%advWords.length;setTimeout(typeWriter,400);return}
+    setTimeout(typeWriter,del?50:90);
+}
+typeWriter();
+
+// --- Before/After slider ---
+const sl=document.getElementById('sliderAdv'),ov=document.getElementById('overlayAdv'),hd=document.getElementById('handleAdv');
+let active=false;
+function setW(r,cx){let rel=Math.max(0,Math.min(cx-r.left,r.width)),pct=(rel/r.width)*100;ov.style.width=pct+'%';if(hd)hd.style.left=pct+'%'}
+if(sl&&ov){
+    const mv=e=>{if(!active)return;setW(sl.getBoundingClientRect(),e.touches?e.touches[0].clientX:e.clientX)};
+    const st=e=>{active=true;e.preventDefault();mv(e)};
+    sl.addEventListener('mousedown',st);sl.addEventListener('touchstart',st,{passive:false});
+    window.addEventListener('mousemove',mv);window.addEventListener('touchmove',mv);
+    window.addEventListener('mouseup',()=>active=false);window.addEventListener('touchend',()=>active=false);
+    setTimeout(()=>{const r=sl.getBoundingClientRect();r.width>0?setW(r,r.left+r.width*.5):ov.style.width='50%'},100);
+}
+
+// --- Scroll reveal ---
+const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// --- Counter animation ---
+function animateCounters(){
+    document.querySelectorAll('.stat-number[data-target]').forEach(el=>{
+        const target=+el.dataset.target,duration=2000,step=Math.ceil(target/(duration/16));
+        let current=0;
+        const timer=setInterval(()=>{current+=step;if(current>=target){current=target;clearInterval(timer)}el.textContent=current.toLocaleString('pt-BR')},16);
+    });
+}
+const statsObs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){animateCounters();statsObs.unobserve(e.target)}})},{threshold:.3});
+const statsBar=document.querySelector('.stats-bar');
+if(statsBar)statsObs.observe(statsBar);
+</script>
+</body>
+</html>
