@@ -58,15 +58,35 @@
             <i class="fa-solid fa-magnifying-glass"></i>
             <span>Busca</span>
         </div>
-        <div class="nav-item">
-            <i class="fa-solid fa-receipt"></i>
-            <span>Pedidos</span>
+        <div class="nav-item" id="openCart">
+            <div style="position: relative;">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="cart-badge" id="cartBadge">0</span>
+            </div>
+            <span>Carrinho</span>
         </div>
         <div class="nav-item">
             <i class="fa-solid fa-user"></i>
             <span>Perfil</span>
         </div>
     </nav>
+
+    <!-- Modal Carrinho -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="cart-modal">
+            <div class="modal-header">
+                <h2>Seu Carrinho</h2>
+                <i class="fa-solid fa-xmark" id="closeCart" style="cursor: pointer; font-size: 1.5rem;"></i>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <!-- Itens do carrinho serão inseridos aqui -->
+            </div>
+            <button class="checkout-btn" id="checkoutBtn">
+                <span>Finalizar Pedido</span>
+                <span id="cartTotal">R$ 0,00</span>
+            </button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
