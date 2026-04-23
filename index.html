@@ -2,309 +2,936 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Alcântara & Mendes | Advocacia de Elite</title>
-    <meta name="description" content="Escritório de advocacia premium com 25 anos de excelência em Direito Empresarial, Cível, Trabalhista e Imobiliário. Agende sua consultoria.">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Horta Iguatemi | Hortifruti Fresco e Delivery</title>
+    <meta name="description" content="Verduras e legumes colhidos no mesmo dia, com mais sabor, qualidade e entrega rápida em Sorocaba e região. Visite nosso site!">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        :root{--gold:#c6a23b;--gold-light:#e0c87c;--gold-dark:#9e7f28;--navy:#0a1a2f;--navy-light:#1e3a5f;--sand:#f5f0e6;--charcoal:#2c3e4e;--bg:#fefcf8}
-        html{scroll-behavior:smooth}
-        body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:#1e2a3e;overflow-x:hidden}
+        :root {
+            --primary: #2e7d32;
+            --primary-light: #4caf50;
+            --primary-dark: #1b5e20;
+            --accent: #f57c00;
+            --whatsapp: #25D366;
+            --whatsapp-hover: #128C7E;
+            --bg-light: #f4fbf5;
+            --text-dark: #1f2937;
+            --text-body: #4b5563;
+            --white: #ffffff;
+            --border: #e5e7eb;
+        }
 
-        /* Texture overlay */
-        .bg-texture{position:fixed;inset:0;background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgdmlld0JveD0iMCAwIDQwIDQwIj48cGF0aCBmaWxsPSIjYzZhMjNiIiBmaWxsLW9wYWNpdHk9IjAuMDMiIGQ9Ik0wIDBoNDB2NDBIMHoiLz48L3N2Zz4=');pointer-events:none;z-index:0}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        .container{max-width:1280px;margin:0 auto;padding:0 2rem;position:relative;z-index:2}
+        html {
+            scroll-behavior: smooth;
+        }
 
-        /* --- NAV --- */
-        nav{display:flex;justify-content:space-between;align-items:center;padding:1.8rem 0 1.5rem;flex-wrap:wrap;border-bottom:1px solid rgba(198,162,59,.3)}
-        .logo{font-size:1.8rem;font-weight:800;letter-spacing:-.5px;color:var(--navy)}
-        .logo span{color:var(--gold);font-weight:300;font-family:'Playfair Display',serif;margin-right:2px}
-        .logo small{font-size:.7rem;font-weight:400;display:block;letter-spacing:2px;color:var(--charcoal)}
-        .nav-links a{color:var(--navy);margin-left:2.5rem;text-decoration:none;font-weight:600;transition:.2s;font-size:.95rem;position:relative}
-        .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--gold);transition:width .3s}
-        .nav-links a:hover{color:var(--gold)}
-        .nav-links a:hover::after{width:100%}
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--white);
+            color: var(--text-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-        /* --- HERO --- */
-        .hero{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;min-height:85vh;gap:3rem;padding:3rem 0 4rem}
-        .hero-content{flex:1.2}
-        .badge{display:inline-block;background:rgba(198,162,59,.12);padding:.4rem 1rem;border-radius:40px;font-size:.75rem;font-weight:700;color:var(--gold);letter-spacing:1px;margin-bottom:1.5rem;border-left:2px solid var(--gold)}
-        .hero h1{font-size:3.6rem;font-weight:800;line-height:1.15;color:var(--navy);margin-bottom:1.2rem}
-        .hero h1 em{color:var(--gold);font-style:italic;font-family:'Playfair Display',serif;font-weight:400}
-        .typing-wrapper{font-size:1.5rem;font-weight:500;margin:1.2rem 0;color:var(--charcoal);display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
-        .static-text{color:#4a627a}
-        #typed-text-adv{color:var(--gold);font-weight:700;border-right:2px solid var(--gold);padding-right:6px;white-space:nowrap;font-family:monospace;font-size:1.5rem}
-        .hero p{font-size:1.05rem;color:#3a546d;max-width:550px;margin:1.5rem 0;line-height:1.7}
-        .cta-group{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem}
-        .btn-primary,.btn-outline{padding:.9rem 2rem;font-weight:700;border-radius:40px;transition:.25s;text-decoration:none;display:inline-flex;align-items:center;gap:10px;font-size:.95rem;cursor:pointer}
-        .btn-primary{background:var(--navy);color:#fff;border:none;box-shadow:0 8px 18px rgba(10,26,47,.15)}
-        .btn-primary:hover{background:var(--gold);color:var(--navy);transform:translateY(-3px);box-shadow:0 12px 28px rgba(198,162,59,.3)}
-        .btn-outline{border:1px solid var(--navy);color:var(--navy);background:transparent}
-        .btn-outline:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.2;
+        }
 
-        .hero-visual{flex:1;border-radius:28px;overflow:hidden;box-shadow:0 25px 50px -12px rgba(0,0,0,.25);position:relative}
-        .hero-visual img{width:100%;height:auto;display:block;object-fit:cover;transition:transform .6s}
-        .hero-visual:hover img{transform:scale(1.03)}
-        .caption-photo{padding:.8rem;background:#fff;font-size:.8rem;color:var(--charcoal);text-align:center;border-top:1px solid #eee}
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
 
-        /* --- STATS --- */
-        .stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;background:var(--navy);border-radius:32px;padding:2.5rem 2rem;margin:-2rem 0 4rem;position:relative;z-index:3}
-        .stat-item{text-align:center;color:#fff}
-        .stat-number{font-size:2.8rem;font-weight:800;color:var(--gold);line-height:1}
-        .stat-label{font-size:.85rem;margin-top:.4rem;opacity:.8}
+        /* --- UI COMPONENTS --- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 32px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
 
-        /* --- SECTIONS --- */
-        .section-title{text-align:center;font-size:2.4rem;font-weight:800;color:var(--navy);margin:4rem 0 .8rem}
-        .section-sub{text-align:center;color:var(--gold);font-weight:600;letter-spacing:1px;margin-bottom:3rem;font-size:.9rem}
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+            box-shadow: 0 10px 20px rgba(46, 125, 50, 0.2);
+        }
 
-        /* --- PRACTICE GRID --- */
-        .practice-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2rem;margin:3rem 0}
-        .practice-card{background:#fff;border-radius:28px;padding:2.2rem 1.8rem;text-align:center;box-shadow:0 8px 20px rgba(0,0,0,.02);transition:.3s;border:1px solid rgba(198,162,59,.15);position:relative;overflow:hidden}
-        .practice-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:4px;background:linear-gradient(90deg,var(--gold),var(--gold-light));transform:scaleX(0);transition:transform .3s;transform-origin:left}
-        .practice-card:hover{transform:translateY(-8px);border-color:var(--gold);box-shadow:0 20px 40px -15px rgba(198,162,59,.2)}
-        .practice-card:hover::before{transform:scaleX(1)}
-        .practice-card .icon-wrap{width:64px;height:64px;border-radius:16px;background:rgba(198,162,59,.1);display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem}
-        .practice-card i{font-size:1.8rem;color:var(--gold)}
-        .practice-card h3{font-size:1.3rem;margin-bottom:.6rem;color:var(--navy)}
-        .practice-card p{color:#5a6e7c;font-size:.92rem;line-height:1.5}
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(46, 125, 50, 0.3);
+            color: var(--white);
+        }
 
-        /* --- TRANSFORM / BEFORE-AFTER --- */
-        .transform-section{background:var(--sand);border-radius:48px;padding:3.5rem 2rem;margin:5rem 0}
-        .ba-wrapper{max-width:900px;margin:0 auto}
-        .ba-title{text-align:center;font-size:1.8rem;font-weight:700;margin-bottom:2rem;color:var(--navy)}
-        .ba-slider-adv{position:relative;max-width:800px;margin:0 auto;overflow:hidden;border-radius:32px;box-shadow:0 25px 45px -10px rgba(0,0,0,.25);cursor:ew-resize;aspect-ratio:800/500}
-        .ba-slider-adv img{width:100%;height:100%;object-fit:cover;display:block;position:absolute;top:0;left:0}
-        .ba-overlay-adv{position:absolute;top:0;left:0;width:50%;height:100%;overflow:hidden;border-right:3px solid var(--gold);z-index:5}
-        .ba-overlay-adv img{width:auto;min-width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0}
-        .handle-adv{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--navy);font-weight:bold;box-shadow:0 0 0 4px #fff,0 4px 12px rgba(0,0,0,.3);pointer-events:none;z-index:20;transition:background .2s}
-        .ba-labels-adv{display:flex;justify-content:space-between;max-width:800px;margin:1.2rem auto 0;font-weight:600;color:var(--navy);font-size:.9rem}
-        .real-note{text-align:center;margin-top:1rem;font-size:.8rem;color:#6c7a89}
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
 
-        /* --- TEAM --- */
-        .team{display:flex;flex-wrap:wrap;gap:2.5rem;justify-content:center;margin:3rem 0 4rem}
-        .member{background:#fff;border-radius:32px;width:260px;text-align:center;padding:2rem 1.2rem;box-shadow:0 10px 25px rgba(0,0,0,.03);transition:.3s;border:1px solid #e9e2d4}
-        .member:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(0,0,0,.08);border-color:var(--gold)}
-        .member img{width:140px;height:140px;border-radius:50%;object-fit:cover;margin-bottom:1rem;border:3px solid var(--gold);padding:3px;transition:transform .3s}
-        .member:hover img{transform:scale(1.05)}
-        .member h3{color:var(--navy);font-weight:700;font-size:1.1rem}
-        .member p{color:var(--gold);font-weight:500;font-size:.85rem;margin-top:.3rem}
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
 
-        /* --- TESTIMONIAL --- */
-        .testimonial-adv{background:linear-gradient(135deg,var(--navy),var(--navy-light));color:#fff;border-radius:48px;padding:4rem 3rem;margin:4rem 0;text-align:center;position:relative;overflow:hidden}
-        .testimonial-adv::before{content:'❝';position:absolute;top:-20px;left:40px;font-size:12rem;color:rgba(198,162,59,.08);font-family:serif;line-height:1}
-        .testimonial-adv p{font-size:1.3rem;font-style:italic;max-width:800px;margin:0 auto;line-height:1.7;position:relative}
-        .testimonial-adv h4{margin-top:1.5rem;color:var(--gold);font-size:1rem}
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
 
-        /* --- CONTACT CTA --- */
-        .contact-cta{text-align:center;margin:4rem 0;padding:3rem 2rem;background:linear-gradient(135deg,rgba(198,162,59,.08),rgba(198,162,59,.02));border-radius:48px;border:1px solid rgba(198,162,59,.2)}
-        .contact-cta h2{font-size:2rem;color:var(--navy);margin-bottom:1rem}
-        .contact-cta p{color:#5a6e7c;max-width:600px;margin:0 auto 2rem;line-height:1.6}
-        .btn-whatsapp{background:#25d366;color:#fff;padding:1rem 2.5rem;border-radius:40px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:10px;font-size:1.05rem;transition:.3s;border:none;cursor:pointer;box-shadow:0 8px 20px rgba(37,211,102,.25)}
-        .btn-whatsapp:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(37,211,102,.35);background:#20c05c}
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: var(--primary-light);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            padding: 160px 0 100px;
+            background: linear-gradient(135deg, var(--bg-light) 0%, #ffffff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative blobs */
+        .blob-1 {
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: rgba(76, 175, 80, 0.1);
+            border-radius: 50%;
+            filter: blur(50px);
+            z-index: 0;
+        }
+
+        .blob-2 {
+            position: absolute;
+            bottom: -50px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            background: rgba(245, 124, 0, 0.08);
+            border-radius: 50%;
+            filter: blur(40px);
+            z-index: 0;
+        }
+
+        .hero .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .hero-text h1 span {
+            color: var(--primary-light);
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: var(--text-body);
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 2;
+            object-fit: cover;
+            aspect-ratio: 4/5;
+        }
+
+        /* Floating badge */
+        .floating-badge {
+            position: absolute;
+            bottom: 40px;
+            left: -30px;
+            background: var(--white);
+            padding: 16px 24px;
+            border-radius: 16px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 3;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .badge-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--bg-light);
+            color: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .badge-text p {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+            line-height: 1.2;
+        }
+
+        .badge-text span {
+            font-size: 0.85rem;
+            color: var(--text-body);
+        }
+
+        /* --- ABOUT SECTION --- */
+        .about {
+            padding: 100px 0;
+            background-color: var(--white);
+        }
+
+        .about .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-image {
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: var(--bg-light);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        /* --- BENEFITS --- */
+        .benefits {
+            padding: 100px 0;
+            background-color: var(--bg-light);
+            text-align: center;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .benefit-card {
+            background: var(--white);
+            padding: 40px 30px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .benefit-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--bg-light);
+            color: var(--primary);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 20px;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover .benefit-icon {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .benefit-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        /* --- HOW IT WORKS --- */
+        .how-it-works {
+            padding: 100px 0;
+            background-color: var(--white);
+            text-align: center;
+        }
+
+        .steps-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 60px;
+            position: relative;
+        }
+
+        .steps-container::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: var(--border);
+            z-index: 0;
+        }
+
+        .step {
+            position: relative;
+            z-index: 1;
+            width: 200px;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: var(--white);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Outfit', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            margin: 0 auto 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 0 10px var(--white);
+        }
+
+        .step:hover .step-number {
+            background: var(--primary);
+            color: var(--white);
+            transform: scale(1.1);
+        }
+
+        .step h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        /* --- PRODUCTS --- */
+        .products {
+            padding: 100px 0;
+            background-color: var(--bg-light);
+        }
+
+        .products-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 50px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border-color: rgba(76, 175, 80, 0.2);
+        }
+
+        .product-img {
+            height: 220px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-img img {
+            transform: scale(1.1);
+        }
+        
+        .product-tag {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(255,255,255,0.9);
+            color: var(--primary-dark);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            font-family: 'Outfit', sans-serif;
+            z-index: 2;
+        }
+
+        .product-info {
+            padding: 24px;
+        }
+
+        .product-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+
+        .product-info p {
+            color: var(--text-body);
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+
+        /* --- DELIVERY BANNER --- */
+        .delivery-banner {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: var(--white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .delivery-banner::after {
+            content: '\f0d1';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 15rem;
+            color: rgba(255,255,255,0.05);
+            pointer-events: none;
+        }
+
+        .delivery-banner h2 {
+            color: var(--white);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .delivery-banner p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
 
         /* --- FOOTER --- */
-        footer{border-top:1px solid rgba(0,0,0,.05);padding:2.5rem 0;text-align:center;color:#5a6e7c;font-size:.9rem}
-        footer p+p{margin-top:.6rem}
+        footer {
+            background-color: var(--text-dark);
+            color: var(--white);
+            padding: 60px 0 30px;
+            text-align: center;
+        }
 
-        /* --- SCROLL REVEAL --- */
-        .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}
-        .reveal.visible{opacity:1;transform:translateY(0)}
+        .footer-logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-logo i {
+            color: var(--primary-light);
+        }
+
+        .footer-text {
+            color: #9ca3af;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 30px;
+            color: #6b7280;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
 
         /* --- RESPONSIVE --- */
-        @media(max-width:900px){
-            .stats-bar{grid-template-columns:repeat(2,1fr);gap:1rem;padding:2rem 1.5rem}
-            .stat-number{font-size:2.2rem}
+        @media (max-width: 992px) {
+            .hero .container, .about .container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .hero {
+                padding: 120px 0 60px;
+                text-align: center;
+            }
+            .hero-text p {
+                margin: 0 auto 30px;
+            }
+            .floating-badge {
+                bottom: 20px;
+                left: 20px;
+            }
+            .steps-container {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 40px;
+            }
+            .steps-container::before {
+                display: none;
+            }
+            .products-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
         }
-        @media(max-width:800px){
-            nav{flex-direction:column;gap:1.5rem;padding:1.5rem 0;}
-            .nav-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;}
-            .nav-links a{margin-left:0;font-size:.9rem}
-            .hero{flex-direction:column;text-align:center;padding:2rem 0;gap:2rem;}
-            .hero-content{flex:none;width:100%;}
-            .hero-visual{flex:none;width:100%;margin-top:1rem;}
-            .cta-group{justify-content:center;}
-            .hero h1{font-size:2.4rem}
-            .hero p{margin:1.5rem auto;}
-            .container{padding:0 1.5rem}
-            .section-title{font-size:1.8rem}
+
+        @media (max-width: 768px) {
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+            .section-title {
+                font-size: 2.2rem;
+            }
+            .nav-links {
+                display: none; /* simple mobile menu toggle could be added here */
+            }
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            .about-image {
+                margin: 0 15px;
+            }
         }
-        @media(max-width:600px){
-            .stats-bar{grid-template-columns:1fr;margin:2rem 0 3rem;padding:2rem 1.5rem;}
-            .team{gap:1.5rem}
-            .member{width:100%;max-width:100%}
-            .testimonial-adv{padding:2.5rem 1.5rem}
-            .ba-labels-adv{flex-direction:column;gap:.5rem;text-align:center}
+
+        /* --- ANIMATIONS --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <nav>
-        <div class="logo">
-            <span>✦</span> ALCÂNTARA & MENDES
-            <small>ADVOGADOS ASSOCIADOS</small>
-        </div>
-        <div class="nav-links">
-            <a href="#atuacao">Atuação</a>
-            <a href="#equipe">Equipe</a>
-            <a href="#resultados">Resultados</a>
-            <a href="#contato">Contato</a>
-        </div>
-    </nav>
 
-    <section class="hero">
-        <div class="hero-content">
-            <div class="badge"><i class="fas fa-gavel"></i> EXCELÊNCIA JURÍDICA · 25 ANOS</div>
-            <h1>Assessoria Jurídica de <em>Excelência</em></h1>
-            <p>Especialistas em Direito Empresarial, Cível e Imobiliário. Atuamos com dedicação e transparência para oferecer segurança jurídica, mitigando riscos e garantindo os melhores resultados para o seu negócio.</p>
-            <div class="cta-group">
-                <a href="#contato" class="btn-primary"><i class="fas fa-calendar-alt"></i> Agendar Consultoria</a>
-                <a href="#resultados" class="btn-outline"><i class="fas fa-building"></i> Conheça o Escritório</a>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-content">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-leaf"></i> Horta Iguatemi
+            </a>
+            <div class="nav-links">
+                <a href="#sobre">Sobre Nós</a>
+                <a href="#beneficios">Benefícios</a>
+                <a href="#como-funciona">Como Funciona</a>
+                <a href="#produtos">Produtos</a>
             </div>
+            <a href="#" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.95rem;">
+                <i class="fa-solid fa-globe"></i> Visitar nosso site
+            </a>
         </div>
-        <div class="hero-visual">
-            <img src="images/hero-lawyers.png" alt="Dr. Marcus Alcântara e Dra. Renata Mendes em reunião no escritório">
-            <div class="caption-photo"><i class="fas fa-camera"></i> Dra. Renata Mendes e Dr. Marcus Alcântara — Sede: Av. Paulista, 2000</div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="blob-1"></div>
+        <div class="blob-2"></div>
+        <div class="container">
+            <div class="hero-text reveal">
+                <div class="section-tag" style="background: rgba(76, 175, 80, 0.15);">Entrega Rápida em Sorocaba</div>
+                <h1>Hortifruti Fresco Direto da <span>Horta</span> para Sua Casa</h1>
+                <p>Verduras e legumes colhidos no mesmo dia, com mais sabor, qualidade e entrega rápida em Sorocaba e região.</p>
+                <a href="#" class="btn btn-primary">
+                    <i class="fa-solid fa-globe" style="font-size: 1.3rem;"></i> Visitar nosso site
+                </a>
+            </div>
+            <div class="hero-image reveal">
+                <!-- Using a high-quality placeholder for the hero image -->
+                <img src="images/Unknown-3.jpeg" alt="Verduras frescas, horta natural" onerror="this.src='https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                <div class="floating-badge">
+                    <div class="badge-icon">
+                        <i class="fa-solid fa-truck-fast"></i>
+                    </div>
+                    <div class="badge-text">
+                        <p>Delivery Rápido</p>
+                        <span>Sorocaba e Região</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Stats Bar -->
-    <div class="stats-bar reveal">
-        <div class="stat-item"><div class="stat-number" data-target="25">0</div><div class="stat-label">Anos de Atuação</div></div>
-        <div class="stat-item"><div class="stat-number" data-target="3200">0</div><div class="stat-label">Casos Resolvidos</div></div>
-        <div class="stat-item"><div class="stat-number" data-target="97">0</div><div class="stat-label">% Satisfação</div></div>
-        <div class="stat-item"><div class="stat-number" data-target="15">0</div><div class="stat-label">Advogados Especializados</div></div>
-    </div>
-
-    <!-- Áreas de Atuação -->
-    <div id="atuacao">
-        <h2 class="section-title reveal">Soluções jurídicas sob medida</h2>
-        <div class="section-sub reveal">EXCELÊNCIA RECONHECIDA NAS PRINCIPAIS ÁREAS DO DIREITO</div>
-        <div class="practice-grid">
-            <div class="practice-card reveal">
-                <div class="icon-wrap"><i class="fas fa-chart-line"></i></div>
-                <h3>Direito Empresarial</h3>
-                <p>Contratos, fusões, aquisições e governança corporativa para empresas em crescimento.</p>
+    <!-- Sobre Section -->
+    <section id="sobre" class="about">
+        <div class="container">
+            <div class="about-image reveal">
+                <!-- Using a high-quality placeholder for the about image -->
+                <img src="images/Unknown-1.jpeg" alt="Família trabalhando na horta" onerror="this.src='https://images.unsplash.com/photo-1595856723223-9366e045c71b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
             </div>
-            <div class="practice-card reveal">
-                <div class="icon-wrap"><i class="fas fa-balance-scale"></i></div>
-                <h3>Cível & Consumidor</h3>
-                <p>Defesa estratégica com alto índice de êxito em causas de alta complexidade.</p>
-            </div>
-            <div class="practice-card reveal">
-                <div class="icon-wrap"><i class="fas fa-briefcase"></i></div>
-                <h3>Trabalhista</h3>
-                <p>Gestão de riscos, compliance trabalhista e consultoria preventiva empresarial.</p>
-            </div>
-            <div class="practice-card reveal">
-                <div class="icon-wrap"><i class="fas fa-home"></i></div>
-                <h3>Direito Imobiliário</h3>
-                <p>Regularização fundiária, contratos imobiliários e incorporações seguras.</p>
+            <div class="about-text reveal">
+                <div class="section-tag">Nossa História</div>
+                <h2 class="section-title">Tradição de mais de 20 anos em Sorocaba</h2>
+                <p>Na <strong>Horta Iguatemi</strong>, estamos há mais de 20 anos no ramo, trabalhando em família para produzir, com muito amor, verduras e legumes de alta qualidade em Sorocaba e região.</p>
+                <p>Ao longo dessas duas décadas, conquistamos a confiança dos nossos clientes oferecendo produtos sempre frescos, saborosos e cultivados com responsabilidade. Todos os itens são <strong>colhidos no mesmo dia da venda</strong>, garantindo mais qualidade, mais durabilidade e muito mais sabor para a sua mesa.</p>
+                <p>Utilizamos apenas fertilizantes biológicos em nossa produção, respeitando a natureza e cuidando da saúde da sua família.</p>
+                <p>E agora, dando mais um passo para facilitar o seu dia a dia, a Horta Iguatemi está iniciando seu <strong>serviço de delivery</strong>. Receba em casa produtos frescos, colhidos no dia, diretamente da nossa horta — com a mesma qualidade de sempre, mas com muito mais praticidade.</p>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Antes e Depois -->
-    <div class="transform-section reveal" id="resultados">
-        <div class="ba-wrapper">
-            <div class="ba-title"><i class="fas fa-hard-hat"></i> Antes & Depois: Nossa sede revitalizada</div>
-            <div class="ba-slider-adv" id="sliderAdv">
-                <img src="images/office-after.png" alt="Escritório reformado com design premium">
-                <div class="ba-overlay-adv" id="overlayAdv">
-                    <img src="images/office-before.png" alt="Antiga estrutura do escritório">
+    <!-- Benefícios Section -->
+    <section id="beneficios" class="benefits">
+        <div class="container">
+            <div class="section-tag">Por que escolher a Horta Iguatemi?</div>
+            <h2 class="section-title">Benefícios de comprar direto do produtor</h2>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card reveal">
+                    <div class="benefit-icon"><i class="fa-solid fa-sun"></i></div>
+                    <h3>Colhidos no Mesmo Dia</h3>
+                    <p>Garantia de frescor absoluto com produtos colhidos no dia da entrega.</p>
                 </div>
-                <div class="handle-adv" id="handleAdv"><i class="fas fa-arrows-alt-h"></i></div>
-            </div>
-            <div class="ba-labels-adv">
-                <span><i class="fas fa-building"></i> Antes: ambiente tradicional</span>
-                <span><i class="fas fa-gem"></i> Depois: escritório premium</span>
-            </div>
-            <div class="real-note"><i class="fas fa-hand-pointer"></i> Clique e arraste para comparar a transformação (reforma 2024).</div>
-        </div>
-    </div>
-
-    <!-- Equipe -->
-    <div id="equipe">
-        <h2 class="section-title reveal">Nossa equipe</h2>
-        <div class="section-sub reveal">PROFISSIONAIS COM TRAJETÓRIA SÓLIDA E COMPROMISSO COM O CLIENTE</div>
-        <div class="team">
-            <div class="member reveal">
-                <img src="images/marcus.png" alt="Dr. Marcus Alcântara">
-                <h3>Dr. Marcus Alcântara</h3>
-                <p>Sócio-fundador | Empresarial</p>
-            </div>
-            <div class="member reveal">
-                <img src="images/renata.png" alt="Dra. Renata Mendes">
-                <h3>Dra. Renata Mendes</h3>
-                <p>Sócia | Direito Cível e Contratos</p>
-            </div>
-            <div class="member reveal">
-                <img src="images/felipe.png" alt="Dr. Felipe Torres">
-                <h3>Dr. Felipe Torres</h3>
-                <p>Trabalhista e Compliance</p>
-            </div>
-            <div class="member reveal">
-                <img src="images/camila.png" alt="Dra. Camila Veiga">
-                <h3>Dra. Camila Veiga</h3>
-                <p>Direito Imobiliário e Ambiental</p>
+                <div class="benefit-card reveal">
+                    <div class="benefit-icon"><i class="fa-solid fa-leaf"></i></div>
+                    <h3>Fertilizantes Biológicos</h3>
+                    <p>Cultivo sustentável que respeita o meio ambiente e a sua saúde.</p>
+                </div>
+                <div class="benefit-card reveal">
+                    <div class="benefit-icon"><i class="fa-solid fa-handshake"></i></div>
+                    <h3>Sem Atravessadores</h3>
+                    <p>Direto da nossa horta para a sua casa, com preços justos e mais qualidade.</p>
+                </div>
+                <div class="benefit-card reveal">
+                    <div class="benefit-icon"><i class="fa-solid fa-motorcycle"></i></div>
+                    <h3>Entrega Rápida</h3>
+                    <p>Agilidade no delivery para Sorocaba e região, mantendo o frescor.</p>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Testimonial -->
-    <div class="testimonial-adv reveal">
-        <i class="fas fa-quote-left" style="font-size:2rem;color:var(--gold);margin-bottom:1rem;display:block"></i>
-        <p>"Profissionalismo e estratégia impecáveis. O escritório Alcântara & Mendes conseguiu reverter uma causa complexa com agilidade e total segurança jurídica. Recomendo sem reservas."</p>
-        <h4>— Carlos E. Soares, CEO do Grupo Nexus</h4>
-    </div>
+    <!-- Como Funciona Section -->
+    <section id="como-funciona" class="how-it-works">
+        <div class="container">
+            <div class="section-tag">Praticidade</div>
+            <h2 class="section-title">Como Funciona</h2>
+            
+            <div class="steps-container">
+                <div class="step reveal" style="transition-delay: 0.1s;">
+                    <div class="step-number">1</div>
+                    <h3>Escolha seus produtos</h3>
+                    <p>Confira nossa lista de verduras e legumes frescos.</p>
+                </div>
+                <div class="step reveal" style="transition-delay: 0.2s;">
+                    <div class="step-number">2</div>
+                    <h3>Faça o pedido</h3>
+                    <p>Confira nossa lista e faça seu pedido diretamente pelo site.</p>
+                </div>
+                <div class="step reveal" style="transition-delay: 0.3s;">
+                    <div class="step-number">3</div>
+                    <h3>Colheita no dia</h3>
+                    <p>A Horta Iguatemi colhe os produtos fresquinhos para você.</p>
+                </div>
+                <div class="step reveal" style="transition-delay: 0.4s;">
+                    <div class="step-number">4</div>
+                    <h3>Entregamos</h3>
+                    <p>Receba na sua casa com todo conforto e praticidade.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- Contact CTA -->
-    <div class="contact-cta reveal" id="contato">
-        <h2>Fale com nosso time jurídico</h2>
-        <p>Agende uma consultoria personalizada e descubra como podemos proteger seus interesses com excelência e discrição.</p>
-        <a href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20agendar%20uma%20consultoria." class="btn-whatsapp" target="_blank">
-            <i class="fab fa-whatsapp" style="font-size:1.3rem"></i> Falar pelo WhatsApp
-        </a>
-    </div>
+    <!-- Produtos Section -->
+    <section id="produtos" class="products">
+        <div class="container">
+            <div class="products-header reveal">
+                <div>
+                    <div class="section-tag">Frescor Garantido</div>
+                    <h2 class="section-title" style="margin-bottom: 0;">Produtos Disponíveis</h2>
+                </div>
+                <a href="#" class="btn btn-outline">
+                    <i class="fa-solid fa-globe"></i> Visitar nosso site
+                </a>
+            </div>
 
+            <div class="products-grid">
+                <!-- Using the user's image names assuming they are placed in images/ folder. Adding Unsplash fallbacks just in case. -->
+                <div class="product-card reveal">
+                    <div class="product-img">
+                        <div class="product-tag">Mais Vendido</div>
+                        <img src="images/couve-4.jpeg" alt="Couve Fresca" onerror="this.src='https://images.unsplash.com/photo-1528640107297-cdd1b6a32d66?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'">
+                    </div>
+                    <div class="product-info">
+                        <h3>Couve</h3>
+                        <p>Folhas verdes e crocantes, ideais para refogados e sucos.</p>
+                    </div>
+                </div>
+
+                <div class="product-card reveal">
+                    <div class="product-img">
+                        <img src="images/Unknown-2.jpeg" alt="Beterraba" onerror="this.src='https://images.unsplash.com/photo-1568584711075-3d021a7c3ca3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'">
+                    </div>
+                    <div class="product-info">
+                        <h3>Beterraba</h3>
+                        <p>Fresquinha e cheia de nutrientes, cultivada com amor.</p>
+                    </div>
+                </div>
+
+                <div class="product-card reveal">
+                    <div class="product-img">
+                        <img src="images/Unknown.jpeg" alt="Hortelã" onerror="this.src='https://images.unsplash.com/photo-1600077106724-946750eeaf3c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'">
+                    </div>
+                    <div class="product-info">
+                        <h3>Hortelã</h3>
+                        <p>Aroma intenso e frescor inigualável para suas receitas.</p>
+                    </div>
+                </div>
+
+                <div class="product-card reveal">
+                    <div class="product-img">
+                        <img src="images/agriao.jpeg" alt="Agrião" onerror="this.src='https://images.unsplash.com/photo-1626200225134-c4aeb53c15eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'">
+                    </div>
+                    <div class="product-info">
+                        <h3>Agrião</h3>
+                        <p>Perfeito para saladas e refogados saudáveis.</p>
+                    </div>
+                </div>
+                
+                <!-- Additional generic products mentioned in the list -->
+                <div class="product-card reveal">
+                    <div class="product-img">
+                        <img src="images/alface.jpeg" alt="Alface" onerror="this.src='https://images.unsplash.com/photo-1622206151226-18ca2c9e7a16?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'">
+                    </div>
+                    <div class="product-info">
+                        <h3>Alface</h3>
+                        <p>Crespa, lisa e americana. Extremamente fresca.</p>
+                    </div>
+                </div>
+
+                <div class="product-card reveal">
+                    <div class="product-img">
+                        <img src="images/tomate.jpg" alt="Tomate" onerror="this.src='https://images.unsplash.com/photo-1592924357228-91a4daadcfea?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'">
+                    </div>
+                    <div class="product-info">
+                        <h3>Tomate</h3>
+                        <p>Vermelhinhos, suculentos e cheios de sabor.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <p style="text-align: center; margin-top: 40px; color: var(--text-body);">E muito mais: Rúcula, Cebolinha, Salsinha, Pepino, Abobrinha e Legumes variados.</p>
+        </div>
+    </section>
+
+    <!-- Delivery Banner -->
+    <section class="delivery-banner">
+        <div class="container reveal">
+            <h2>Delivery Horta Iguatemi</h2>
+            <p>Agora você pode receber verduras e legumes frescos sem sair de casa. A Horta Iguatemi colhe no mesmo dia e entrega direto para você em Sorocaba e região.</p>
+            <a href="#" class="btn btn-primary" style="background-color: var(--white); color: var(--primary);">
+                <i class="fa-solid fa-globe"></i> Visitar nosso site
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
-        <p><i class="fas fa-scale-balanced"></i> Alcântara & Mendes Advogados | Ética, Discrição e Resultados</p>
-        <p>© 2025 · Todos os direitos reservados</p>
+        <div class="container">
+            <a href="#" class="footer-logo">
+                <i class="fa-solid fa-leaf"></i> Horta Iguatemi
+            </a>
+            <p class="footer-text">Mais de 20 anos produzindo qualidade.<br>Produtos frescos direto da horta para sua mesa.</p>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Horta Iguatemi. Todos os direitos reservados.</p>
+                <p>Sorocaba e Região • Visite nosso site</p>
+            </div>
+        </div>
     </footer>
-</div>
 
-<script>
-// --- Before/After slider ---
-const sl=document.getElementById('sliderAdv'),ov=document.getElementById('overlayAdv'),hd=document.getElementById('handleAdv');
-let active=false;
-function setW(r,cx){let rel=Math.max(0,Math.min(cx-r.left,r.width)),pct=(rel/r.width)*100;ov.style.width=pct+'%';if(hd)hd.style.left=pct+'%'}
-if(sl&&ov){
-    const mv=e=>{if(!active)return;setW(sl.getBoundingClientRect(),e.touches?e.touches[0].clientX:e.clientX)};
-    const st=e=>{active=true;e.preventDefault();mv(e)};
-    sl.addEventListener('mousedown',st);sl.addEventListener('touchstart',st,{passive:false});
-    window.addEventListener('mousemove',mv);window.addEventListener('touchmove',mv);
-    window.addEventListener('mouseup',()=>active=false);window.addEventListener('touchend',()=>active=false);
-    setTimeout(()=>{const r=sl.getBoundingClientRect();r.width>0?setW(r,r.left+r.width*.5):ov.style.width='50%'},100);
-}
+    <!-- Scripts -->
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.05)';
+                header.style.padding = '10px 0';
+            } else {
+                header.style.boxShadow = 'none';
+                header.style.padding = '15px 0';
+            }
+        });
 
-// --- Scroll reveal ---
-const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.15});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+        // Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        });
 
-// --- Counter animation ---
-function animateCounters(){
-    document.querySelectorAll('.stat-number[data-target]').forEach(el=>{
-        const target=+el.dataset.target,duration=2000,step=Math.ceil(target/(duration/16));
-        let current=0;
-        const timer=setInterval(()=>{current+=step;if(current>=target){current=target;clearInterval(timer)}el.textContent=current.toLocaleString('pt-BR')},16);
-    });
-}
-const statsObs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){animateCounters();statsObs.unobserve(e.target)}})},{threshold:.3});
-const statsBar=document.querySelector('.stats-bar');
-if(statsBar)statsObs.observe(statsBar);
-</script>
+        revealElements.forEach(element => {
+            revealObserver.observe(element);
+        });
+    </script>
 </body>
 </html>
