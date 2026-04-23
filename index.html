@@ -119,29 +119,28 @@
             .stat-number{font-size:2.2rem}
         }
         @media(max-width:800px){
-            .hero h1{font-size:2.3rem}
-            .typing-wrapper,#typed-text-adv{font-size:1.2rem}
-            .container{padding:0 1.2rem}
-            .nav-links a{margin-left:1.2rem;font-size:.85rem}
-            .hero{min-height:auto;padding:2rem 0}
+            nav{flex-direction:column;gap:1.5rem;padding:1.5rem 0;}
+            .nav-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;}
+            .nav-links a{margin-left:0;font-size:.9rem}
+            .hero{flex-direction:column;text-align:center;padding:2rem 0;gap:2rem;}
+            .hero-content{flex:none;width:100%;}
+            .hero-visual{flex:none;width:100%;margin-top:1rem;}
+            .cta-group{justify-content:center;}
+            .hero h1{font-size:2.4rem}
+            .hero p{margin:1.5rem auto;}
+            .container{padding:0 1.5rem}
             .section-title{font-size:1.8rem}
         }
         @media(max-width:600px){
-            .stats-bar{grid-template-columns:1fr 1fr;margin-top:1rem}
-            .hero-visual{margin-top:1rem}
+            .stats-bar{grid-template-columns:1fr;margin:2rem 0 3rem;padding:2rem 1.5rem;}
             .team{gap:1.5rem}
-            .member{width:100%;max-width:300px}
+            .member{width:100%;max-width:100%}
             .testimonial-adv{padding:2.5rem 1.5rem}
             .ba-labels-adv{flex-direction:column;gap:.5rem;text-align:center}
         }
-
-        /* Cursor blink */
-        @keyframes blinkGold{0%,100%{border-color:var(--gold)}50%{border-color:transparent}}
-        .cursor-blink-adv{animation:blinkGold .8s step-end infinite}
     </style>
 </head>
 <body>
-<div class="bg-texture"></div>
 <div class="container">
     <nav>
         <div class="logo">
@@ -159,12 +158,8 @@
     <section class="hero">
         <div class="hero-content">
             <div class="badge"><i class="fas fa-gavel"></i> EXCELÊNCIA JURÍDICA · 25 ANOS</div>
-            <h1>Estratégia que <em>transforma</em><br>desafios em vitórias.</h1>
-            <div class="typing-wrapper">
-                <span class="static-text">Atuação em:</span>
-                <span id="typed-text-adv" class="cursor-blink-adv"></span>
-            </div>
-            <p>Direito empresarial, cível e contencioso de alta complexidade. Nosso escritório une tradição e modernidade para entregar soluções jurídicas precisas e resultados concretos.</p>
+            <h1>Assessoria Jurídica de <em>Excelência</em></h1>
+            <p>Especialistas em Direito Empresarial, Cível e Imobiliário. Atuamos com dedicação e transparência para oferecer segurança jurídica, mitigando riscos e garantindo os melhores resultados para o seu negócio.</p>
             <div class="cta-group">
                 <a href="#contato" class="btn-primary"><i class="fas fa-calendar-alt"></i> Agendar Consultoria</a>
                 <a href="#resultados" class="btn-outline"><i class="fas fa-building"></i> Conheça o Escritório</a>
@@ -282,20 +277,6 @@
 </div>
 
 <script>
-// --- Typing animation ---
-const advWords=["Direito Empresarial","Contencioso Estratégico","Contratos de Alta Complexidade","Compliance & Governança","Direito Imobiliário"];
-let idx=0,ch=0,del=false;
-const typedSpan=document.getElementById("typed-text-adv");
-function typeWriter(){
-    let w=advWords[idx];
-    if(del){ch--;typedSpan.textContent=w.substring(0,ch)}
-    else{ch++;typedSpan.textContent=w.substring(0,ch)}
-    if(!del&&ch===w.length){del=true;setTimeout(typeWriter,1800);return}
-    if(del&&ch===0){del=false;idx=(idx+1)%advWords.length;setTimeout(typeWriter,400);return}
-    setTimeout(typeWriter,del?50:90);
-}
-typeWriter();
-
 // --- Before/After slider ---
 const sl=document.getElementById('sliderAdv'),ov=document.getElementById('overlayAdv'),hd=document.getElementById('handleAdv');
 let active=false;
