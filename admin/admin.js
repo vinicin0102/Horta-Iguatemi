@@ -78,12 +78,19 @@ async function fetchProductsGitHub() {
             syncStatus.innerHTML = '<i class="fa-solid fa-check-circle"></i> Sincronizado';
             renderTable();
         } else {
-            throw new Error('Falha ao ler repositório. Verifique as credenciais.');
+            if (res.status === 401) {
+                throw new Error('Token do GitHub inválido ou expirado. Verifique as configurações.');
+            } else if (res.status === 404) {
+                throw new Error('Repositório não encontrado ou arquivo produtos.json não existe no caminho data/.');
+            } else {
+                throw new Error(`Erro do GitHub: ${res.status} ${res.statusText}`);
+            }
         }
     } catch (e) {
         console.error(e);
         syncStatus.className = 'sync-status offline';
-        syncStatus.innerHTML = '<i class="fa-solid fa-xmark-circle"></i> Erro de Sincronização';
+        syncStatus.innerHTML = `<i class="fa-solid fa-xmark-circle"></i> Erro de Sincronização`;
+        alert("Erro de Sincronização: " + e.message); // Exibe o erro exato na tela
         fetchProductsLocal(); // Fallback
     }
 }
