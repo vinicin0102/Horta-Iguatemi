@@ -31,8 +31,8 @@ document.getElementById('logoutBtn').addEventListener('click', () => location.re
 document.getElementById('configMenuBtn').addEventListener('click', () => openModal('configModal'));
 document.getElementById('closeConfigBtn').addEventListener('click', () => closeModal('configModal'));
 document.getElementById('saveConfigBtn').addEventListener('click', () => {
-    ghConfig.user = document.getElementById('ghUser').value.trim();
-    ghConfig.repo = document.getElementById('ghRepo').value.trim();
+    ghConfig.user = document.getElementById('ghUser').value.trim().replace(/\/+$/, '');
+    ghConfig.repo = document.getElementById('ghRepo').value.trim().replace(/\/+$/, '');
     ghConfig.token = document.getElementById('ghToken').value.trim();
     
     localStorage.setItem('ghUser', ghConfig.user);
