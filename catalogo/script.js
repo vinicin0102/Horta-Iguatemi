@@ -57,9 +57,18 @@ let products = [];
 */
 let cart = [];
 
+const SUPABASE_URL = "https://ykmcjsrhiwkhqmtsrhzz.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlrbWNqc3JoaXdraHFtdHNyaHp6Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NzI5NDA1NSwiZXhwIjoyMDkyODcwMDU1fQ.G62TDXD41dAY_YBdiL4sjlDrWg9yfLWba1rplDoBrwo";
+
 async function loadProducts() {
     try {
-        const response = await fetch('../data/produtos.json');
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/produtos?select=*&order=id.asc`, {
+            headers: {
+                'apikey': SUPABASE_KEY,
+                'Authorization': `Bearer ${SUPABASE_KEY}`
+            }
+        });
+        
         if (response.ok) {
             products = await response.json();
             // Filtrar produtos fora de estoque
@@ -71,10 +80,7 @@ async function loadProducts() {
         }
     } catch (error) {
         console.error("Erro ao buscar produtos:", error);
-        // Fallback local se erro de CORS
-        if (window.location.protocol === 'file:') {
-            document.getElementById('catalogContent').innerHTML = '<div style="text-align:center; padding: 40px;"><p>⚠️ O catálogo precisa ser aberto via servidor ou Vercel para ler o arquivo produtos.json.</p></div>';
-        }
+        document.getElementById('catalogContent').innerHTML = '<div style="text-align:center; padding: 40px;"><p>⚠️ Erro ao conectar ao banco de dados.</p></div>';
     }
 }
 

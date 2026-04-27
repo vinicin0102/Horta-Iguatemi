@@ -2,12 +2,9 @@
 let products = [];
 let editingId = null;
 
-// Configuração do GitHub
-let ghConfig = {
-    user: localStorage.getItem('ghUser') || '',
-    repo: localStorage.getItem('ghRepo') || '',
-    token: localStorage.getItem('ghToken') || ''
-};
+// Configuração Supabase (Migrado do GitHub)
+const SUPABASE_URL = "https://ykmcjsrhiwkhqmtsrhzz.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlrbWNqc3JoaXdraHFtdHNyaHp6Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NzI5NDA1NSwiZXhwIjoyMDkyODcwMDU1fQ.G62TDXD41dAY_YBdiL4sjlDrWg9yfLWba1rplDoBrwo";
 
 // Elementos da Interface
 const loginScreen = document.getElementById('loginScreen');
@@ -20,181 +17,88 @@ document.getElementById('loginBtn').addEventListener('click', () => {
     if (pass === 'iguatemi123') {
         loginScreen.style.display = 'none';
         dashboardScreen.style.display = 'flex';
-        checkConfigAndLoad();
+        
+        // Remove configuração do GitHub antiga da tela
+        const configBtn = document.getElementById('configMenuBtn');
+        if(configBtn) configBtn.style.display = 'none';
+        document.getElementById('saveChangesBtn').style.display = 'none'; // No Supabase salva na hora
+        
+        fetchProductsSupabase();
     } else {
         document.getElementById('loginError').innerText = 'Senha incorreta.';
     }
 });
 document.getElementById('logoutBtn').addEventListener('click', () => location.reload());
 
-// --- CONFIGURAÇÃO GITHUB ---
-document.getElementById('configMenuBtn').addEventListener('click', () => openModal('configModal'));
-document.getElementById('closeConfigBtn').addEventListener('click', () => closeModal('configModal'));
-document.getElementById('saveConfigBtn').addEventListener('click', () => {
-    ghConfig.user = document.getElementById('ghUser').value.trim().replace(/\/+$/, '');
-    ghConfig.repo = document.getElementById('ghRepo').value.trim().replace(/\/+$/, '');
-    ghConfig.token = document.getElementById('ghToken').value.trim();
-    
-    localStorage.setItem('ghUser', ghConfig.user);
-    localStorage.setItem('ghRepo', ghConfig.repo);
-    localStorage.setItem('ghToken', ghConfig.token);
-    
-    closeModal('configModal');
-    checkConfigAndLoad();
-});
+// --- API SUPABASE ---
+async function fetchProductsSupabase() {
+    syncStatus.className = 'sync-status syncing';
+    syncStatus.innerHTML = '<i class="fa-solid fa-rotate"></i> Conectando DB...';
 
-function checkConfigAndLoad() {
-    if (!ghConfig.user || !ghConfig.repo || !ghConfig.token) {
-        syncStatus.className = 'sync-status offline';
-        syncStatus.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> GitHub não configurado (Modo Leitura)';
-        // Tenta carregar localmente
-        fetchProductsLocal();
-        setTimeout(() => openModal('configModal'), 500);
-    } else {
-        syncStatus.className = 'sync-status syncing';
-        syncStatus.innerHTML = '<i class="fa-solid fa-rotate"></i> Conectando...';
-        document.getElementById('ghUser').value = ghConfig.user;
-        document.getElementById('ghRepo').value = ghConfig.repo;
-        document.getElementById('ghToken').value = ghConfig.token;
-        fetchProductsGitHub();
-    }
-}
-
-// --- API GITHUB ---
-async function fetchProductsGitHub() {
     try {
-        const url = `https://api.github.com/repos/${ghConfig.user}/${ghConfig.repo}/contents/data/produtos.json`;
-        const res = await fetch(url, {
-            headers: { 'Authorization': `token ${ghConfig.token}` }
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/produtos?select=*&order=id.asc`, {
+            headers: {
+                'apikey': SUPABASE_KEY,
+                'Authorization': `Bearer ${SUPABASE_KEY}`
+            }
         });
         
         if (res.ok) {
-            const data = await res.json();
-            // Conteúdo vem em Base64
-            const content = decodeURIComponent(escape(atob(data.content)));
-            products = JSON.parse(content);
-            window.fileSha = data.sha; // Guarda o SHA para poder atualizar depois
-            syncStatus.className = 'sync-status online';
-            syncStatus.innerHTML = '<i class="fa-solid fa-check-circle"></i> Sincronizado';
-            renderTable();
-        } else {
-            if (res.status === 401) {
-                throw new Error('Token do GitHub inválido ou expirado. Verifique as configurações.');
-            } else if (res.status === 404) {
-                throw new Error('Repositório não encontrado ou arquivo produtos.json não existe no caminho data/.');
+            products = await res.json();
+            
+            // Migração Automática se estiver vazio!
+            if (products.length === 0) {
+                syncStatus.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Migrando dados antigos...';
+                await migrateLocalToSupabase();
             } else {
-                throw new Error(`Erro do GitHub: ${res.status} ${res.statusText}`);
+                syncStatus.className = 'sync-status online';
+                syncStatus.innerHTML = '<i class="fa-solid fa-check-circle"></i> Banco Conectado';
+                renderTable();
             }
+        } else {
+            throw new Error(`Erro ${res.status}: Crie a tabela "produtos" no Supabase primeiro!`);
         }
     } catch (e) {
         console.error(e);
         syncStatus.className = 'sync-status offline';
-        syncStatus.innerHTML = `<i class="fa-solid fa-xmark-circle"></i> Erro de Sincronização`;
-        alert("Erro de Sincronização: " + e.message); // Exibe o erro exato na tela
-        fetchProductsLocal(); // Fallback
+        syncStatus.innerHTML = `<i class="fa-solid fa-xmark-circle"></i> Tabela Não Encontrada`;
+        alert(e.message);
     }
 }
 
-async function fetchProductsLocal() {
+// Migra os dados do produtos.json para o Supabase na primeira vez
+async function migrateLocalToSupabase() {
     try {
         const res = await fetch('../data/produtos.json');
         if (res.ok) {
-            products = await res.json();
-            renderTable();
-        }
-    } catch (e) {
-        console.error("Erro local", e);
-    }
-}
-
-async function publishToGitHub() {
-    if (!ghConfig.token) return alert("Configure o GitHub primeiro!");
-    
-    syncStatus.className = 'sync-status syncing';
-    syncStatus.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Publicando...';
-    document.getElementById('saveChangesBtn').disabled = true;
-
-    try {
-        // Pega o SHA mais recente primeiro para evitar conflitos
-        const getUrl = `https://api.github.com/repos/${ghConfig.user}/${ghConfig.repo}/contents/data/produtos.json`;
-        const getRes = await fetch(getUrl, { headers: { 'Authorization': `token ${ghConfig.token}` } });
-        if(getRes.ok) {
-            const currentData = await getRes.json();
-            window.fileSha = currentData.sha;
-        }
-
-        const contentStr = JSON.stringify(products, null, 4);
-        const encodedContent = btoa(unescape(encodeURIComponent(contentStr)));
-
-        const url = `https://api.github.com/repos/${ghConfig.user}/${ghConfig.repo}/contents/data/produtos.json`;
-        const res = await fetch(url, {
-            method: 'PUT',
-            headers: {
-                'Authorization': `token ${ghConfig.token}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                message: "Atualiza catálogo de produtos via Admin",
-                content: encodedContent,
-                sha: window.fileSha
-            })
-        });
-
-        if (res.ok) {
-            const data = await res.json();
-            window.fileSha = data.content.sha;
-            syncStatus.className = 'sync-status online';
-            syncStatus.innerHTML = '<i class="fa-solid fa-check-circle"></i> Publicado com Sucesso!';
-            setTimeout(() => {
-                syncStatus.innerHTML = '<i class="fa-solid fa-check-circle"></i> Sincronizado';
-            }, 3000);
-        } else {
-            throw new Error(await res.text());
-        }
-    } catch (e) {
-        console.error(e);
-        alert("Erro ao publicar: " + e.message);
-        syncStatus.className = 'sync-status offline';
-        syncStatus.innerHTML = '<i class="fa-solid fa-xmark-circle"></i> Erro ao publicar';
-    } finally {
-        document.getElementById('saveChangesBtn').disabled = false;
-    }
-}
-
-async function uploadImageToGitHub(file) {
-    if (!ghConfig.token) throw new Error("GitHub não configurado");
-    
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onloadend = async () => {
-            const base64data = reader.result.split(',')[1];
-            const fileName = `img_${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.]/g, '')}`;
+            const localProducts = await res.json();
             
-            try {
-                const url = `https://api.github.com/repos/${ghConfig.user}/${ghConfig.repo}/contents/images/${fileName}`;
-                const res = await fetch(url, {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': `token ${ghConfig.token}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        message: "Upload de imagem via Admin",
-                        content: base64data
-                    })
-                });
-                
-                if (res.ok) {
-                    resolve(`../images/${fileName}`);
-                } else {
-                    reject("Erro ao fazer upload da imagem");
-                }
-            } catch(e) {
-                reject(e);
+            // Insere todos no Supabase
+            const insertRes = await fetch(`${SUPABASE_URL}/rest/v1/produtos`, {
+                method: 'POST',
+                headers: {
+                    'apikey': SUPABASE_KEY,
+                    'Authorization': `Bearer ${SUPABASE_KEY}`,
+                    'Content-Type': 'application/json',
+                    'Prefer': 'return=representation'
+                },
+                body: JSON.stringify(localProducts)
+            });
+            
+            if (insertRes.ok) {
+                products = await insertRes.json();
+                syncStatus.className = 'sync-status online';
+                syncStatus.innerHTML = '<i class="fa-solid fa-check-circle"></i> Banco Conectado';
+                renderTable();
+                alert("Migração concluída! Todos os seus produtos foram copiados para o Supabase com sucesso.");
+            } else {
+                throw new Error("Erro ao inserir produtos no banco");
             }
-        };
-        reader.readAsDataURL(file);
-    });
+        }
+    } catch (e) {
+        console.error("Erro na migração", e);
+        alert("Erro na migração: " + e.message);
+    }
 }
 
 // --- RENDERIZAÇÃO DA TABELA ---
@@ -210,7 +114,7 @@ function renderTable() {
             <td class="prod-img-cell"><img src="${p.img}" onerror="this.src='https://via.placeholder.com/48?text=Img'"></td>
             <td>
                 <span class="prod-name-cell">${p.name}</span>
-                <span class="prod-desc">${p.desc}</span>
+                <span class="prod-desc">${p.desc || ''}</span>
             </td>
             <td><span class="badge badge-cat">${p.category}</span></td>
             <td><b>R$ ${parseFloat(p.price).toFixed(2).replace('.', ',')}</b></td>
@@ -247,25 +151,36 @@ document.getElementById('addProductBtn').addEventListener('click', () => {
 document.getElementById('closeModalBtn').addEventListener('click', () => closeModal('productModal'));
 document.getElementById('cancelModalBtn').addEventListener('click', () => closeModal('productModal'));
 
-// Preview de imagem (URL)
 document.getElementById('pImageURL').addEventListener('input', (e) => {
     if(e.target.value) {
         document.getElementById('imagePreview').src = e.target.value;
-        document.getElementById('pImageFile').value = ""; // limpa file
+        document.getElementById('pImageFile').value = ""; 
     }
 });
 
-// Preview de imagem (File)
 document.getElementById('pImageFile').addEventListener('change', (e) => {
     const file = e.target.files[0];
     if (file) {
         const url = URL.createObjectURL(file);
         document.getElementById('imagePreview').src = url;
-        document.getElementById('pImageURL').value = ""; // limpa url
+        document.getElementById('pImageURL').value = ""; 
     }
 });
 
-// Salvar (Memória)
+// Upload via imgbb gratuito (para facilitar no Supabase)
+async function uploadImage(file) {
+    const formData = new FormData();
+    formData.append('image', file);
+    // API Key pública de testes/exemplo do ImgBB ou podemos retornar data URI
+    // Como Supabase storage precisa de setup, vamos usar DataURI temporário para não quebrar
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.readAsDataURL(file);
+    });
+}
+
+// Salvar no Banco
 document.getElementById('saveProductBtn').addEventListener('click', async (e) => {
     e.preventDefault();
     const btn = document.getElementById('saveProductBtn');
@@ -284,43 +199,57 @@ document.getElementById('saveProductBtn').addEventListener('click', async (e) =>
     btn.disabled = true;
     btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Salvando...';
 
-    // Faz upload se tiver arquivo
     if (fileInput.files.length > 0) {
-        try {
-            img = await uploadImageToGitHub(fileInput.files[0]);
-        } catch(err) {
-            alert(err);
-            btn.disabled = false;
-            btn.innerHTML = 'Salvar Produto';
-            return;
-        }
+        img = await uploadImage(fileInput.files[0]);
     } else if (!img && !editingId) {
-        img = "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=300&q=80"; // fallback
+        img = "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=300&q=80";
     }
 
-    if (editingId) {
-        // Atualiza
-        const index = products.findIndex(p => p.id === editingId);
-        products[index] = {
-            ...products[index],
-            name, category, desc, price, stock,
-            img: img || products[index].img
-        };
-    } else {
-        // Novo
-        const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
-        products.unshift({
-            id: newId, name, category, desc, price, stock, img
-        });
-    }
+    const payload = { name, category, desc, price, stock, img };
 
-    renderTable();
-    closeModal('productModal');
-    btn.disabled = false;
-    btn.innerHTML = 'Salvar Produto';
-    
-    // Alerta para lembrar de publicar
-    syncStatus.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Alterações não publicadas';
+    try {
+        if (editingId) {
+            // Atualiza (PATCH)
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/produtos?id=eq.${editingId}`, {
+                method: 'PATCH',
+                headers: {
+                    'apikey': SUPABASE_KEY,
+                    'Authorization': `Bearer ${SUPABASE_KEY}`,
+                    'Content-Type': 'application/json',
+                    'Prefer': 'return=representation'
+                },
+                body: JSON.stringify(payload)
+            });
+            if(res.ok) {
+                const updated = await res.json();
+                const index = products.findIndex(p => p.id === editingId);
+                products[index] = updated[0];
+            } else throw new Error("Falha ao atualizar");
+        } else {
+            // Novo (POST)
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/produtos`, {
+                method: 'POST',
+                headers: {
+                    'apikey': SUPABASE_KEY,
+                    'Authorization': `Bearer ${SUPABASE_KEY}`,
+                    'Content-Type': 'application/json',
+                    'Prefer': 'return=representation'
+                },
+                body: JSON.stringify(payload)
+            });
+            if(res.ok) {
+                const inserted = await res.json();
+                products.push(inserted[0]);
+            } else throw new Error("Falha ao inserir");
+        }
+        renderTable();
+        closeModal('productModal');
+    } catch(err) {
+        alert(err.message);
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = 'Salvar Produto';
+    }
 });
 
 window.editProduct = (id) => {
@@ -342,13 +271,23 @@ window.editProduct = (id) => {
     openModal('productModal');
 };
 
-window.deleteProduct = (id) => {
-    if(confirm("Tem certeza que deseja excluir este produto?")) {
-        products = products.filter(p => p.id !== id);
-        renderTable();
-        syncStatus.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Alterações não publicadas';
+window.deleteProduct = async (id) => {
+    if(confirm("Tem certeza que deseja excluir este produto do Banco de Dados?")) {
+        try {
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/produtos?id=eq.${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'apikey': SUPABASE_KEY,
+                    'Authorization': `Bearer ${SUPABASE_KEY}`
+                }
+            });
+            
+            if(res.ok) {
+                products = products.filter(p => p.id !== id);
+                renderTable();
+            } else throw new Error("Erro ao deletar");
+        } catch(e) {
+            alert(e.message);
+        }
     }
 };
-
-// --- PUBLICAR ---
-document.getElementById('saveChangesBtn').addEventListener('click', publishToGitHub);
