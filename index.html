@@ -916,13 +916,6 @@
             }
         });
 
-        // Scroll Reveal Animation
-        const revealElements = document.querySelectorAll('.reveal');
-        
-        const revealObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
         const SUPABASE_URL = "https://ykmcjsrhiwkhqmtsrhzz.supabase.co";
         const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlrbWNqc3JoaXdraHFtdHNyaHp6Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NzI5NDA1NSwiZXhwIjoyMDkyODcwMDU1fQ.G62TDXD41dAY_YBdiL4sjlDrWg9yfLWba1rplDoBrwo";
 
@@ -966,6 +959,7 @@
                 }
             }
         }
+
         window.addEventListener("scroll", reveal);
         
         document.addEventListener("DOMContentLoaded", () => {
