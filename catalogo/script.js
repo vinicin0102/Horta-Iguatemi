@@ -1,4 +1,5 @@
-const products = [
+let products = [];
+/*
     // LEGUMES
     { id: 1, name: "Abobrinha Itália", category: "legumes", desc: "700g-900g = 3 a 4 unidades", price: 4.50, img: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=300&q=80" },
     { id: 2, name: "Abóbora Capotiá", category: "legumes", desc: "unidade (aprox. 1,5kg)", price: 8.90, img: "https://images.unsplash.com/photo-1506543730435-e2c1d4553a84?auto=format&fit=crop&w=300&q=80" },
@@ -53,9 +54,29 @@ const products = [
     { id: 47, name: "Limão Tahiti", category: "frutas", desc: "900g", price: 4.90, img: "https://images.unsplash.com/photo-1590505660564-44b1e66f833a?auto=format&fit=crop&w=300&q=80" },
     { id: 48, name: "Limão Rosa", category: "frutas", desc: "900G", price: 5.50, img: "https://images.unsplash.com/photo-1590505660564-44b1e66f833a?auto=format&fit=crop&w=300&q=80" },
     { id: 49, name: "Laranja", category: "frutas", desc: "3-5kg SACO", price: 15.00, img: "https://images.unsplash.com/photo-1582979512210-99b6a53386f9?auto=format&fit=crop&w=300&q=80" },
-];
-
+*/
 let cart = [];
+
+async function loadProducts() {
+    try {
+        const response = await fetch('../data/produtos.json');
+        if (response.ok) {
+            products = await response.json();
+            // Filtrar produtos fora de estoque
+            products = products.filter(p => p.stock !== false && p.stock !== 'false' && p.stock !== 0);
+            renderCatalog();
+        } else {
+            console.error("Erro ao carregar produtos:", response.statusText);
+            document.getElementById('catalogContent').innerHTML = '<p style="text-align:center; padding: 40px;">Não foi possível carregar o catálogo no momento.</p>';
+        }
+    } catch (error) {
+        console.error("Erro ao buscar produtos:", error);
+        // Fallback local se erro de CORS
+        if (window.location.protocol === 'file:') {
+            document.getElementById('catalogContent').innerHTML = '<div style="text-align:center; padding: 40px;"><p>⚠️ O catálogo precisa ser aberto via servidor ou Vercel para ler o arquivo produtos.json.</p></div>';
+        }
+    }
+}
 
 function renderCatalog(filter = "todos") {
     const catalogContent = document.getElementById('catalogContent');
@@ -186,5 +207,5 @@ document.getElementById('checkoutBtn').addEventListener('click', () => {
     window.open(whatsappUrl, '_blank');
 });
 
-// Initial render
-renderCatalog();
+// Initial load
+loadProducts();

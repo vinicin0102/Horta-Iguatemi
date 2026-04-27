@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo | Horta Iguatemi</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Tela de Login -->
+    <div id="loginScreen" class="login-container">
+        <div class="login-box">
+            <div class="login-logo">
+                <i class="fa-solid fa-leaf"></i> Horta Iguatemi
+            </div>
+            <h2>Acesso Restrito</h2>
+            <p>Painel Administrativo</p>
+            <div class="form-group">
+                <label for="passwordInput">Senha de Acesso</label>
+                <input type="password" id="passwordInput" placeholder="Digite sua senha...">
+                <p id="loginError" class="error-msg"></p>
+            </div>
+            <button id="loginBtn" class="btn btn-primary">Entrar <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboardScreen" class="dashboard-container" style="display: none;">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fa-solid fa-leaf"></i> Admin
+            </div>
+            <ul class="sidebar-menu">
+                <li class="active"><a href="#"><i class="fa-solid fa-box"></i> Produtos</a></li>
+                <li><a href="#" id="configMenuBtn"><i class="fa-solid fa-gear"></i> Configuração (GitHub)</a></li>
+                <li><a href="../catalogo/index.html" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Ver Loja</a></li>
+                <li class="logout-item"><a href="#" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <h1>Gerenciamento de Produtos</h1>
+                <div class="topbar-actions">
+                    <span id="syncStatus" class="sync-status">Conectando...</span>
+                    <button class="btn btn-primary" id="addProductBtn">
+                        <i class="fa-solid fa-plus"></i> Novo Produto
+                    </button>
+                    <button class="btn btn-success" id="saveChangesBtn">
+                        <i class="fa-solid fa-cloud-arrow-up"></i> Publicar Alterações
+                    </button>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <div class="table-container">
+                    <table class="products-table">
+                        <thead>
+                            <tr>
+                                <th>Imagem</th>
+                                <th>Produto</th>
+                                <th>Categoria</th>
+                                <th>Preço</th>
+                                <th>Estoque</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsTableBody">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Adicionar/Editar Produto -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Novo Produto</h3>
+                <button class="close-btn" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="productForm">
+                    <input type="hidden" id="productId">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nome do Produto *</label>
+                            <input type="text" id="pName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Categoria *</label>
+                            <select id="pCategory" required>
+                                <option value="legumes">Legumes</option>
+                                <option value="verduras">Verduras</option>
+                                <option value="frutas">Frutas</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Descrição (ex: 1kg, maço) *</label>
+                            <input type="text" id="pDesc" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Preço (R$) *</label>
+                            <input type="number" id="pPrice" step="0.01" required>
+                        </div>
+                    </div>
+                    <div class="form-row align-center">
+                        <div class="form-group">
+                            <label>Disponível em Estoque?</label>
+                            <label class="switch">
+                                <input type="checkbox" id="pStock" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Imagem do Produto *</label>
+                        <div class="image-upload-wrapper">
+                            <img id="imagePreview" src="https://via.placeholder.com/300x200?text=Sem+Imagem" alt="Preview">
+                            <div class="upload-controls">
+                                <label class="btn btn-outline" style="cursor:pointer">
+                                    <i class="fa-solid fa-upload"></i> Escolher Arquivo
+                                    <input type="file" id="pImageFile" accept="image/*" style="display:none">
+                                </label>
+                                <p class="text-sm">Ou insira uma URL:</p>
+                                <input type="url" id="pImageURL" placeholder="https://..." style="margin-top: 5px;">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancelModalBtn">Cancelar</button>
+                <button class="btn btn-primary" id="saveProductBtn">Salvar Produto</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Configuração GitHub -->
+    <div id="configModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Configuração do Banco de Dados (GitHub)</h3>
+                <button class="close-btn" id="closeConfigBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert info">
+                    <i class="fa-solid fa-circle-info"></i> Para que as alterações sejam salvas e o site atualizado no Vercel, preencha os dados do seu repositório.
+                </div>
+                <div class="form-group">
+                    <label>Seu Usuário do GitHub</label>
+                    <input type="text" id="ghUser" placeholder="ex: vinicin0102">
+                </div>
+                <div class="form-group">
+                    <label>Nome do Repositório</label>
+                    <input type="text" id="ghRepo" placeholder="ex: Horta-Iguatemi">
+                </div>
+                <div class="form-group">
+                    <label>Personal Access Token (PAT) *</label>
+                    <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxxxxxxx">
+                    <small><a href="https://github.com/settings/tokens/new?scopes=repo" target="_blank">Clique aqui para gerar um novo Token no GitHub (marque a opção "repo")</a></small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="saveConfigBtn">Salvar Configuração</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
