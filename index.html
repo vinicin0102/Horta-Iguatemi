@@ -690,8 +690,8 @@
         <div class="container">
             <div class="hero-text reveal">
                 <div class="section-tag" style="background: rgba(76, 175, 80, 0.15);">Entrega Rápida em Sorocaba</div>
-                <h1>Hortifruti Fresco Direto da <span>Horta</span> para Sua Casa</h1>
-                <p>Verduras e legumes colhidos no mesmo dia, com mais sabor, qualidade e entrega rápida em Sorocaba e região.</p>
+                <h1 id="dyn-hero-title">Hortifruti Fresco Direto da <span>Horta</span> para Sua Casa</h1>
+                <p id="dyn-hero-sub">Verduras e legumes colhidos no mesmo dia, com mais sabor, qualidade e entrega rápida em Sorocaba e região.</p>
                 <a href="catalogo/index.html" class="btn btn-primary">
                     <i class="fa-solid fa-globe" style="font-size: 1.3rem;"></i> Visitar nosso site
                 </a>
@@ -721,11 +721,13 @@
             </div>
             <div class="about-text reveal">
                 <div class="section-tag">Nossa História</div>
-                <h2 class="section-title">Tradição de mais de 20 anos em Sorocaba</h2>
-                <p>Na <strong>Horta Iguatemi</strong>, estamos há mais de 20 anos no ramo, trabalhando em família para produzir, com muito amor, verduras e legumes de alta qualidade em Sorocaba e região.</p>
-                <p>Ao longo dessas duas décadas, conquistamos a confiança dos nossos clientes oferecendo produtos sempre frescos, saborosos e cultivados com responsabilidade. Todos os itens são <strong>colhidos no mesmo dia da venda</strong>, garantindo mais qualidade, mais durabilidade e muito mais sabor para a sua mesa.</p>
-                <p>Utilizamos apenas fertilizantes biológicos em nossa produção, respeitando a natureza e cuidando da saúde da sua família.</p>
-                <p>E agora, dando mais um passo para facilitar o seu dia a dia, a Horta Iguatemi está iniciando seu <strong>serviço de delivery</strong>. Receba em casa produtos frescos, colhidos no dia, diretamente da nossa horta — com a mesma qualidade de sempre, mas com muito mais praticidade.</p>
+                <h2 class="section-title" id="dyn-about-title">Tradição de mais de 20 anos em Sorocaba</h2>
+                <div id="dyn-about-text">
+                    <p>Na <strong>Horta Iguatemi</strong>, estamos há mais de 20 anos no ramo, trabalhando em família para produzir, com muito amor, verduras e legumes de alta qualidade em Sorocaba e região.</p>
+                    <p>Ao longo dessas duas décadas, conquistamos a confiança dos nossos clientes oferecendo produtos sempre frescos, saborosos e cultivados com responsabilidade. Todos os itens são <strong>colhidos no mesmo dia da venda</strong>, garantindo mais qualidade, mais durabilidade e muito mais sabor para a sua mesa.</p>
+                    <p>Utilizamos apenas fertilizantes biológicos em nossa produção, respeitando a natureza e cuidando da saúde da sua família.</p>
+                    <p>E agora, dando mais um passo para facilitar o seu dia a dia, a Horta Iguatemi está iniciando seu <strong>serviço de delivery</strong>. Receba em casa produtos frescos, colhidos no dia, diretamente da nossa horta — com a mesma qualidade de sempre, mas com muito mais praticidade.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -921,16 +923,54 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.15,
-            rootMargin: "0px 0px -50px 0px"
-        });
+        const SUPABASE_URL = "https://ykmcjsrhiwkhqmtsrhzz.supabase.co";
+        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlrbWNqc3JoaXdraHFtdHNyaHp6Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NzI5NDA1NSwiZXhwIjoyMDkyODcwMDU1fQ.G62TDXD41dAY_YBdiL4sjlDrWg9yfLWba1rplDoBrwo";
 
-        revealElements.forEach(element => {
-            revealObserver.observe(element);
+        async function loadSiteConfig() {
+            try {
+                const res = await fetch(`${SUPABASE_URL}/rest/v1/configuracoes?select=*`, {
+                    headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+                });
+                
+                if (res.ok) {
+                    const configs = await res.json();
+                    const getConfig = (chave) => {
+                        const item = configs.find(c => c.chave === chave);
+                        return item ? item.valor : null;
+                    };
+                    
+                    const heroTitle = getConfig('hero_title');
+                    const heroSub = getConfig('hero_subtitle');
+                    const aboutTitle = getConfig('about_title');
+                    const aboutText = getConfig('about_text');
+                    
+                    if(heroTitle) document.getElementById('dyn-hero-title').innerHTML = heroTitle;
+                    if(heroSub) document.getElementById('dyn-hero-sub').innerText = heroSub;
+                    if(aboutTitle) document.getElementById('dyn-about-title').innerText = aboutTitle;
+                    if(aboutText) document.getElementById('dyn-about-text').innerHTML = aboutText;
+                }
+            } catch (e) {
+                console.log("Configs personalizadas não carregadas, mantendo padrão.");
+            }
+        }
+        
+        // Revelar animações no scroll
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        
+        document.addEventListener("DOMContentLoaded", () => {
+            reveal();
+            loadSiteConfig();
         });
     </script>
 </body>

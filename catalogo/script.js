@@ -60,6 +60,24 @@ let cart = [];
 const SUPABASE_URL = "https://ykmcjsrhiwkhqmtsrhzz.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlrbWNqc3JoaXdraHFtdHNyaHp6Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NzI5NDA1NSwiZXhwIjoyMDkyODcwMDU1fQ.G62TDXD41dAY_YBdiL4sjlDrWg9yfLWba1rplDoBrwo";
 
+let whatsappNumber = "5515999999999";
+
+async function loadConfig() {
+    try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/configuracoes?chave=eq.whatsapp&select=valor`, {
+            headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+        });
+        if (res.ok) {
+            const data = await res.json();
+            if (data.length > 0 && data[0].valor) {
+                whatsappNumber = data[0].valor.replace(/\D/g, ''); // Garante apenas números
+            }
+        }
+    } catch(e) {
+        console.log("Usando WhatsApp padrão.");
+    }
+}
+
 async function loadProducts() {
     try {
         const response = await fetch(`${SUPABASE_URL}/rest/v1/produtos?select=*&order=id.asc`, {
@@ -209,9 +227,9 @@ document.getElementById('checkoutBtn').addEventListener('click', () => {
     message += `\n*Total: R$ ${total.toFixed(2).replace('.', ',')}*`;
     message += `\n\n_Pedido feito via Catálogo Digital Horta Iguatemi_`;
 
-    const whatsappUrl = `https://wa.me/5515999999999?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
 });
 
 // Initial load
-loadProducts();
+loadConfig().then(() => loadProducts());

@@ -39,8 +39,8 @@
                 <i class="fa-solid fa-leaf"></i> Admin
             </div>
             <ul class="sidebar-menu">
-                <li class="active"><a href="#"><i class="fa-solid fa-box"></i> Produtos</a></li>
-                <li><a href="#" id="configMenuBtn"><i class="fa-solid fa-gear"></i> Configuração (GitHub)</a></li>
+                <li class="active" id="menu-produtos"><a href="#"><i class="fa-solid fa-box"></i> Produtos</a></li>
+                <li id="menu-site"><a href="#"><i class="fa-solid fa-palette"></i> Personalizar Site</a></li>
                 <li><a href="../catalogo/index.html" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Ver Loja</a></li>
                 <li class="logout-item"><a href="#" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
             </ul>
@@ -62,7 +62,7 @@
             </header>
 
             <div class="content-wrapper">
-                <div class="table-container">
+                <div class="table-container" id="productsSection">
                     <table class="products-table">
                         <thead>
                             <tr>
@@ -78,6 +78,49 @@
                             <!-- Populated by JS -->
                         </tbody>
                     </table>
+                </div>
+
+                <!-- Personalizar Site Section -->
+                <div class="site-config-container" id="siteConfigSection" style="display: none; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
+                    <h2 style="margin-bottom: 20px; font-family: 'Outfit'; color: var(--primary-dark);">Configurações da Landing Page</h2>
+                    
+                    <form id="siteConfigForm">
+                        <div class="form-group">
+                            <label>Número do WhatsApp (apenas números, ex: 5515999999999) *</label>
+                            <input type="text" id="cfgWhatsapp" required>
+                            <small style="color: #666; margin-top: 5px; display: block;">Será usado para receber os pedidos do catálogo.</small>
+                        </div>
+                        
+                        <div style="border-top: 1px solid #eee; margin: 30px 0;"></div>
+                        
+                        <h3 style="margin-bottom: 15px; font-family: 'Outfit';">Seção Principal (Hero)</h3>
+                        <div class="form-group">
+                            <label>Título Principal</label>
+                            <input type="text" id="cfgHeroTitle" placeholder="Hortifruti Fresco Direto da Horta para Sua Casa">
+                            <small style="color: #666; display: block;">Dica: Use &lt;span&gt;Palavra&lt;/span&gt; para dar destaque verde a uma palavra.</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Subtítulo / Texto Principal</label>
+                            <textarea id="cfgHeroSub" rows="3" placeholder="Verduras e legumes colhidos no mesmo dia..."></textarea>
+                        </div>
+
+                        <div style="border-top: 1px solid #eee; margin: 30px 0;"></div>
+                        
+                        <h3 style="margin-bottom: 15px; font-family: 'Outfit';">Seção Sobre Nós</h3>
+                        <div class="form-group">
+                            <label>Título Sobre Nós</label>
+                            <input type="text" id="cfgAboutTitle" placeholder="Tradição de mais de 20 anos em Sorocaba">
+                        </div>
+                        <div class="form-group">
+                            <label>Texto Sobre Nós</label>
+                            <textarea id="cfgAboutText" rows="8" placeholder="Escreva a história do hortifruti aqui..."></textarea>
+                            <small style="color: #666; display: block;">Você pode usar &lt;br&gt; para quebrar linhas e &lt;strong&gt;texto&lt;/strong&gt; para negrito.</small>
+                        </div>
+                        
+                        <div style="margin-top: 30px; text-align: right;">
+                            <button type="submit" class="btn btn-primary" id="saveSiteConfigBtn"><i class="fa-solid fa-save"></i> Salvar Alterações do Site</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </main>

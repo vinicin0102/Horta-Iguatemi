@@ -30,6 +30,32 @@ document.getElementById('loginBtn').addEventListener('click', () => {
 });
 document.getElementById('logoutBtn').addEventListener('click', () => location.reload());
 
+// --- NAVEGAÇÃO LATERAL ---
+const menuProdutos = document.getElementById('menu-produtos');
+const menuSite = document.getElementById('menu-site');
+const productsSection = document.getElementById('productsSection');
+const siteConfigSection = document.getElementById('siteConfigSection');
+const topbarActions = document.querySelector('.topbar-actions');
+
+menuProdutos.addEventListener('click', (e) => {
+    e.preventDefault();
+    menuProdutos.classList.add('active');
+    menuSite.classList.remove('active');
+    productsSection.style.display = 'block';
+    siteConfigSection.style.display = 'none';
+    topbarActions.style.display = 'flex';
+});
+
+menuSite.addEventListener('click', (e) => {
+    e.preventDefault();
+    menuSite.classList.add('active');
+    menuProdutos.classList.remove('active');
+    productsSection.style.display = 'none';
+    siteConfigSection.style.display = 'block';
+    topbarActions.style.display = 'none';
+    fetchSiteConfigSupabase(); // Carrega os dados mais recentes ao abrir
+});
+
 // --- API SUPABASE ---
 async function fetchProductsSupabase() {
     syncStatus.className = 'sync-status syncing';
@@ -100,6 +126,73 @@ async function migrateLocalToSupabase() {
         alert("Erro na migração: " + e.message);
     }
 }
+
+// --- API SUPABASE (CONFIGURAÇÕES DO SITE) ---
+async function fetchSiteConfigSupabase() {
+    try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/configuracoes?select=*`, {
+            headers: {
+                'apikey': SUPABASE_KEY,
+                'Authorization': `Bearer ${SUPABASE_KEY}`
+            }
+        });
+        
+        if (res.ok) {
+            const configs = await res.json();
+            const getConfig = (chave) => {
+                const item = configs.find(c => c.chave === chave);
+                return item ? item.valor : '';
+            };
+            
+            document.getElementById('cfgWhatsapp').value = getConfig('whatsapp') || '5515999999999';
+            document.getElementById('cfgHeroTitle').value = getConfig('hero_title') || 'Hortifruti Fresco Direto da <span>Horta</span> para Sua Casa';
+            document.getElementById('cfgHeroSub').value = getConfig('hero_subtitle') || 'Verduras e legumes colhidos no mesmo dia, com mais sabor, qualidade e entrega rápida em Sorocaba e região.';
+            document.getElementById('cfgAboutTitle').value = getConfig('about_title') || 'Tradição de mais de 20 anos em Sorocaba';
+            document.getElementById('cfgAboutText').value = getConfig('about_text') || 'Na <strong>Horta Iguatemi</strong>, estamos há mais de 20 anos no ramo, trabalhando em família para produzir, com muito amor, verduras e legumes de alta qualidade em Sorocaba e região.<br><br>Ao longo dessas duas décadas, conquistamos a confiança dos nossos clientes oferecendo produtos sempre frescos, saborosos e cultivados com responsabilidade. Todos os itens são <strong>colhidos no mesmo dia da venda</strong>, garantindo mais qualidade, mais durabilidade e muito mais sabor para a sua mesa.<br><br>Utilizamos apenas fertilizantes biológicos em nossa produção, respeitando a natureza e cuidando da saúde da sua família.<br><br>E agora, dando mais um passo para facilitar o seu dia a dia, a Horta Iguatemi está iniciando seu <strong>serviço de delivery</strong>. Receba em casa produtos frescos, colhidos no dia, diretamente da nossa horta — com a mesma qualidade de sempre, mas com muito mais praticidade.';
+        }
+    } catch (e) {
+        console.error("Erro ao carregar configurações", e);
+    }
+}
+
+document.getElementById('siteConfigForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('saveSiteConfigBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Salvando...';
+    
+    const payload = [
+        { chave: 'whatsapp', valor: document.getElementById('cfgWhatsapp').value },
+        { chave: 'hero_title', valor: document.getElementById('cfgHeroTitle').value },
+        { chave: 'hero_subtitle', valor: document.getElementById('cfgHeroSub').value },
+        { chave: 'about_title', valor: document.getElementById('cfgAboutTitle').value },
+        { chave: 'about_text', valor: document.getElementById('cfgAboutText').value }
+    ];
+    
+    try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/configuracoes`, {
+            method: 'POST',
+            headers: {
+                'apikey': SUPABASE_KEY,
+                'Authorization': `Bearer ${SUPABASE_KEY}`,
+                'Content-Type': 'application/json',
+                'Prefer': 'resolution=merge-duplicates'
+            },
+            body: JSON.stringify(payload)
+        });
+        
+        if (res.ok) {
+            alert("Configurações salvas com sucesso!");
+        } else {
+            throw new Error(`Erro: Você precisa criar a tabela 'configuracoes' primeiro!`);
+        }
+    } catch(err) {
+        alert(err.message);
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-save"></i> Salvar Alterações do Site';
+    }
+});
 
 // --- RENDERIZAÇÃO DA TABELA ---
 function renderTable() {
