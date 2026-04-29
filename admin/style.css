@@ -193,3 +193,97 @@ input:checked + .slider:before { transform: translateX(24px); }
 
 .alert { padding: 12px 16px; border-radius: 10px; margin-bottom: 20px; font-size: 0.9rem; }
 .alert.info { background: #eff6ff; color: #1e3a8a; border: 1px solid #bfdbfe; }
+
+/* SITE CONFIG CONTAINER */
+.site-config-container {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+}
+
+/* ACCORDION */
+.accordion-section {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    background: var(--white);
+    transition: box-shadow 0.3s ease;
+}
+.accordion-section:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+.accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    cursor: pointer;
+    background: var(--bg-body);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text-dark);
+    transition: background 0.3s;
+    user-select: none;
+}
+.accordion-header:hover {
+    background: var(--bg-light);
+}
+.accordion-header span {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.accordion-arrow {
+    transition: transform 0.3s ease;
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+.accordion-section.open .accordion-arrow {
+    transform: rotate(180deg);
+}
+.accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 20px;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+}
+.accordion-section.open .accordion-body {
+    max-height: 2000px;
+    padding: 20px;
+    border-top: 1px solid var(--border);
+}
+
+/* CARD EDIT GROUP */
+.card-edit-group {
+    background: var(--bg-body);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 12px;
+}
+.card-edit-label {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--primary);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* SAVE BUTTON LARGE */
+.btn-save-site {
+    padding: 14px 30px;
+    font-size: 1rem;
+}
+
+small {
+    color: #64748b;
+    font-size: 0.8rem;
+    display: block;
+    margin-top: 4px;
+}

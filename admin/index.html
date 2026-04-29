@@ -81,44 +81,368 @@
                 </div>
 
                 <!-- Personalizar Site Section -->
-                <div class="site-config-container" id="siteConfigSection" style="display: none; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
-                    <h2 style="margin-bottom: 20px; font-family: 'Outfit'; color: var(--primary-dark);">Configurações da Landing Page</h2>
+                <div class="site-config-container" id="siteConfigSection" style="display: none;">
+                    <h2 style="margin-bottom: 8px; font-family: 'Outfit'; color: var(--primary-dark);"><i class="fa-solid fa-wand-magic-sparkles"></i> Editor da Landing Page</h2>
+                    <p style="margin-bottom: 25px; color: #64748b; font-size: 0.9rem;">Clique em cada seção para expandir e editar todos os textos e imagens do seu site.</p>
                     
                     <form id="siteConfigForm">
-                        <div class="form-group">
-                            <label>Número do WhatsApp (apenas números, ex: 5515999999999) *</label>
-                            <input type="text" id="cfgWhatsapp" required>
-                            <small style="color: #666; margin-top: 5px; display: block;">Será usado para receber os pedidos do catálogo.</small>
-                        </div>
-                        
-                        <div style="border-top: 1px solid #eee; margin: 30px 0;"></div>
-                        
-                        <h3 style="margin-bottom: 15px; font-family: 'Outfit';">Seção Principal (Hero)</h3>
-                        <div class="form-group">
-                            <label>Título Principal</label>
-                            <input type="text" id="cfgHeroTitle" placeholder="Hortifruti Fresco Direto da Horta para Sua Casa">
-                            <small style="color: #666; display: block;">Dica: Use &lt;span&gt;Palavra&lt;/span&gt; para dar destaque verde a uma palavra.</small>
-                        </div>
-                        <div class="form-group">
-                            <label>Subtítulo / Texto Principal</label>
-                            <textarea id="cfgHeroSub" rows="3" placeholder="Verduras e legumes colhidos no mesmo dia..."></textarea>
+
+                        <!-- WHATSAPP -->
+                        <div class="accordion-section">
+                            <div class="accordion-header" onclick="toggleAccordion(this)">
+                                <span><i class="fa-brands fa-whatsapp" style="color:#25D366"></i> WhatsApp</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="accordion-body">
+                                <div class="form-group">
+                                    <label>Número do WhatsApp (ex: 5515999999999)</label>
+                                    <input type="text" id="cfgWhatsapp" placeholder="5515999999999">
+                                    <small>Será usado para receber os pedidos do catálogo.</small>
+                                </div>
+                            </div>
                         </div>
 
-                        <div style="border-top: 1px solid #eee; margin: 30px 0;"></div>
-                        
-                        <h3 style="margin-bottom: 15px; font-family: 'Outfit';">Seção Sobre Nós</h3>
-                        <div class="form-group">
-                            <label>Título Sobre Nós</label>
-                            <input type="text" id="cfgAboutTitle" placeholder="Tradição de mais de 20 anos em Sorocaba">
+                        <!-- HERO -->
+                        <div class="accordion-section">
+                            <div class="accordion-header" onclick="toggleAccordion(this)">
+                                <span><i class="fa-solid fa-star" style="color:var(--accent)"></i> Seção Principal (Hero)</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="accordion-body">
+                                <div class="form-group">
+                                    <label>Tag / Etiqueta</label>
+                                    <input type="text" id="cfgHeroTag" placeholder="Entrega Rápida em Sorocaba">
+                                </div>
+                                <div class="form-group">
+                                    <label>Título Principal</label>
+                                    <input type="text" id="cfgHeroTitle" placeholder="Hortifruti Fresco Direto da Horta para Sua Casa">
+                                    <small>Use &lt;span&gt;Palavra&lt;/span&gt; para destaque verde.</small>
+                                </div>
+                                <div class="form-group">
+                                    <label>Subtítulo</label>
+                                    <textarea id="cfgHeroSub" rows="2" placeholder="Verduras e legumes colhidos no mesmo dia..."></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Imagem Principal</label>
+                                    <div class="image-upload-wrapper" style="display:flex; gap:15px; align-items:center;">
+                                        <img id="previewHeroImg" src="https://via.placeholder.com/120" alt="Preview" style="width:120px; height:80px; object-fit:cover; border-radius:8px; border:1px solid #e2e8f0;">
+                                        <div class="upload-controls" style="flex:1;">
+                                            <label class="btn btn-outline" style="cursor:pointer; padding: 8px 16px; font-size: 0.85rem;">
+                                                <i class="fa-solid fa-upload"></i> Enviar Foto
+                                                <input type="file" id="fileHeroImg" accept="image/*" style="display:none" onchange="handleSiteImageUpload(this, 'cfgHeroImg', 'previewHeroImg')">
+                                            </label>
+                                            <input type="text" id="cfgHeroImg" placeholder="Ou cole a URL..." oninput="updatePreview('previewHeroImg', this.value)" style="margin-top: 10px;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Badge Flutuante — Título</label>
+                                        <input type="text" id="cfgBadgeTitle" placeholder="Delivery Rápido">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Badge Flutuante — Subtítulo</label>
+                                        <input type="text" id="cfgBadgeSub" placeholder="Sorocaba e Região">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>Texto Sobre Nós</label>
-                            <textarea id="cfgAboutText" rows="8" placeholder="Escreva a história do hortifruti aqui..."></textarea>
-                            <small style="color: #666; display: block;">Você pode usar &lt;br&gt; para quebrar linhas e &lt;strong&gt;texto&lt;/strong&gt; para negrito.</small>
+
+                        <!-- SOBRE NOS -->
+                        <div class="accordion-section">
+                            <div class="accordion-header" onclick="toggleAccordion(this)">
+                                <span><i class="fa-solid fa-book-open" style="color:var(--primary)"></i> Seção Sobre Nós</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="accordion-body">
+                                <div class="form-group">
+                                    <label>Tag / Etiqueta</label>
+                                    <input type="text" id="cfgAboutTag" placeholder="Nossa História">
+                                </div>
+                                <div class="form-group">
+                                    <label>Imagem Sobre Nós</label>
+                                    <div class="image-upload-wrapper" style="display:flex; gap:15px; align-items:center;">
+                                        <img id="previewAboutImg" src="https://via.placeholder.com/120" alt="Preview" style="width:120px; height:80px; object-fit:cover; border-radius:8px; border:1px solid #e2e8f0;">
+                                        <div class="upload-controls" style="flex:1;">
+                                            <label class="btn btn-outline" style="cursor:pointer; padding: 8px 16px; font-size: 0.85rem;">
+                                                <i class="fa-solid fa-upload"></i> Enviar Foto
+                                                <input type="file" id="fileAboutImg" accept="image/*" style="display:none" onchange="handleSiteImageUpload(this, 'cfgAboutImg', 'previewAboutImg')">
+                                            </label>
+                                            <input type="text" id="cfgAboutImg" placeholder="Ou cole a URL..." oninput="updatePreview('previewAboutImg', this.value)" style="margin-top: 10px;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Título</label>
+                                    <input type="text" id="cfgAboutTitle" placeholder="Tradição de mais de 20 anos em Sorocaba">
+                                </div>
+                                <div class="form-group">
+                                    <label>Texto</label>
+                                    <textarea id="cfgAboutText" rows="6" placeholder="Escreva a história..."></textarea>
+                                    <small>Use &lt;strong&gt;texto&lt;/strong&gt; para negrito e &lt;br&gt; para quebra de linha.</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- BENEFICIOS -->
+                        <div class="accordion-section">
+                            <div class="accordion-header" onclick="toggleAccordion(this)">
+                                <span><i class="fa-solid fa-trophy" style="color:#eab308"></i> Seção Benefícios (4 cards)</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="accordion-body">
+                                <div class="form-group">
+                                    <label>Tag / Etiqueta</label>
+                                    <input type="text" id="cfgBenTag" placeholder="Por que escolher a Horta Iguatemi?">
+                                </div>
+                                <div class="form-group">
+                                    <label>Título da Seção</label>
+                                    <input type="text" id="cfgBenTitle" placeholder="Benefícios de comprar direto do produtor">
+                                </div>
+                                <div class="card-edit-group">
+                                    <p class="card-edit-label">Card 1 — <i class="fa-solid fa-sun"></i></p>
+                                    <div class="form-row">
+                                        <div class="form-group"><label>Título</label><input type="text" id="cfgBen1Title" placeholder="Colhidos no Mesmo Dia"></div>
+                                        <div class="form-group"><label>Texto</label><input type="text" id="cfgBen1Text" placeholder="Garantia de frescor absoluto..."></div>
+                                    </div>
+                                </div>
+                                <div class="card-edit-group">
+                                    <p class="card-edit-label">Card 2 — <i class="fa-solid fa-leaf"></i></p>
+                                    <div class="form-row">
+                                        <div class="form-group"><label>Título</label><input type="text" id="cfgBen2Title" placeholder="Fertilizantes Biológicos"></div>
+                                        <div class="form-group"><label>Texto</label><input type="text" id="cfgBen2Text" placeholder="Cultivo sustentável..."></div>
+                                    </div>
+                                </div>
+                                <div class="card-edit-group">
+                                    <p class="card-edit-label">Card 3 — <i class="fa-solid fa-handshake"></i></p>
+                                    <div class="form-row">
+                                        <div class="form-group"><label>Título</label><input type="text" id="cfgBen3Title" placeholder="Sem Atravessadores"></div>
+                                        <div class="form-group"><label>Texto</label><input type="text" id="cfgBen3Text" placeholder="Direto da nossa horta..."></div>
+                                    </div>
+                                </div>
+                                <div class="card-edit-group">
+                                    <p class="card-edit-label">Card 4 — <i class="fa-solid fa-motorcycle"></i></p>
+                                    <div class="form-row">
+                                        <div class="form-group"><label>Título</label><input type="text" id="cfgBen4Title" placeholder="Entrega Rápida"></div>
+                                        <div class="form-group"><label>Texto</label><input type="text" id="cfgBen4Text" placeholder="Agilidade no delivery..."></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- COMO FUNCIONA -->
+                        <div class="accordion-section">
+                            <div class="accordion-header" onclick="toggleAccordion(this)">
+                                <span><i class="fa-solid fa-list-ol" style="color:#6366f1"></i> Seção Como Funciona (4 passos)</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="accordion-body">
+                                <div class="form-group">
+                                    <label>Tag / Etiqueta</label>
+                                    <input type="text" id="cfgStepsTag" placeholder="Praticidade">
+                                </div>
+                                <div class="form-group">
+                                    <label>Título da Seção</label>
+                                    <input type="text" id="cfgStepsTitle" placeholder="Como Funciona">
+                                </div>
+                                <div class="card-edit-group">
+                                    <p class="card-edit-label">Passo 1</p>
+                                    <div class="form-row">
+                                        <div class="form-group"><label>Título</label><input type="text" id="cfgStep1Title" placeholder="Escolha seus produtos"></div>
+                                        <div class="form-group"><label>Texto</label><input type="text" id="cfgStep1Text" placeholder="Confira nossa lista..."></div>
+                                    </div>
+                                </div>
+                                <div class="card-edit-group">
+                                    <p class="card-edit-label">Passo 2</p>
+                                    <div class="form-row">
+                                        <div class="form-group"><label>Título</label><input type="text" id="cfgStep2Title" placeholder="Faça o pedido"></div>
+                                        <div class="form-group"><label>Texto</label><input type="text" id="cfgStep2Text" placeholder="Faça seu pedido pelo site..."></div>
+                                    </div>
+                                </div>
+                                <div class="card-edit-group">
+                                    <p class="card-edit-label">Passo 3</p>
+                                    <div class="form-row">
+                                        <div class="form-group"><label>Título</label><input type="text" id="cfgStep3Title" placeholder="Colheita no dia"></div>
+                                        <div class="form-group"><label>Texto</label><input type="text" id="cfgStep3Text" placeholder="A Horta Iguatemi colhe..."></div>
+                                    </div>
+                                </div>
+                                <div class="card-edit-group">
+                                    <p class="card-edit-label">Passo 4</p>
+                                    <div class="form-row">
+                                        <div class="form-group"><label>Título</label><input type="text" id="cfgStep4Title" placeholder="Entregamos"></div>
+                                        <div class="form-group"><label>Texto</label><input type="text" id="cfgStep4Text" placeholder="Receba na sua casa..."></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- VITRINE DE PRODUTOS -->
+                        <div class="accordion-section">
+                            <div class="accordion-header" onclick="toggleAccordion(this)">
+                                <span><i class="fa-solid fa-images" style="color:#ec4899"></i> Vitrine de Produtos (6 cards)</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="accordion-body">
+                                <div class="form-group">
+                                    <label>Tag / Etiqueta</label>
+                                    <input type="text" id="cfgProdTag" placeholder="Frescor Garantido">
+                                </div>
+                                <div class="form-group">
+                                    <label>Título da Seção</label>
+                                    <input type="text" id="cfgProdTitle" placeholder="Produtos Disponíveis">
+                                </div>
+
+                                <div class="card-edit-group">
+                                    <p class="card-edit-label">Produto 1</p>
+                                    <div class="form-group"><label>Selo (ex: Mais Vendido)</label><input type="text" id="cfgVp1Tag" placeholder="Mais Vendido"></div>
+                                    <div class="form-row">
+                                        <div class="form-group"><label>Nome</label><input type="text" id="cfgVp1Name" placeholder="Couve"></div>
+                                        <div class="form-group">
+                                            <label>Imagem</label>
+                                            <div style="display:flex; gap:10px; align-items:center;">
+                                                <img id="previewVp1Img" src="https://via.placeholder.com/40" style="width:40px; height:40px; border-radius:5px; object-fit:cover;">
+                                                <label class="btn btn-outline" style="cursor:pointer; padding: 8px; font-size: 0.8rem; flex-shrink:0;">
+                                                    <i class="fa-solid fa-upload"></i> <input type="file" accept="image/*" style="display:none" onchange="handleSiteImageUpload(this, 'cfgVp1Img', 'previewVp1Img')">
+                                                </label>
+                                                <input type="text" id="cfgVp1Img" placeholder="URL da Foto" oninput="updatePreview('previewVp1Img', this.value)">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group"><label>Descrição</label><input type="text" id="cfgVp1Desc" placeholder="Folhas verdes e crocantes..."></div>
+                                </div>
+
+                                <div class="card-edit-group">
+                                    <p class="card-edit-label">Produto 2</p>
+                                    <div class="form-row">
+                                        <div class="form-group"><label>Nome</label><input type="text" id="cfgVp2Name" placeholder="Beterraba"></div>
+                                        <div class="form-group">
+                                            <label>Imagem</label>
+                                            <div style="display:flex; gap:10px; align-items:center;">
+                                                <img id="previewVp2Img" src="https://via.placeholder.com/40" style="width:40px; height:40px; border-radius:5px; object-fit:cover;">
+                                                <label class="btn btn-outline" style="cursor:pointer; padding: 8px; font-size: 0.8rem; flex-shrink:0;">
+                                                    <i class="fa-solid fa-upload"></i> <input type="file" accept="image/*" style="display:none" onchange="handleSiteImageUpload(this, 'cfgVp2Img', 'previewVp2Img')">
+                                                </label>
+                                                <input type="text" id="cfgVp2Img" placeholder="URL da Foto" oninput="updatePreview('previewVp2Img', this.value)">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group"><label>Descrição</label><input type="text" id="cfgVp2Desc" placeholder="Fresquinha e cheia de nutrientes..."></div>
+                                </div>
+
+                                <div class="card-edit-group">
+                                    <p class="card-edit-label">Produto 3</p>
+                                    <div class="form-row">
+                                        <div class="form-group"><label>Nome</label><input type="text" id="cfgVp3Name" placeholder="Hortelã"></div>
+                                        <div class="form-group">
+                                            <label>Imagem</label>
+                                            <div style="display:flex; gap:10px; align-items:center;">
+                                                <img id="previewVp3Img" src="https://via.placeholder.com/40" style="width:40px; height:40px; border-radius:5px; object-fit:cover;">
+                                                <label class="btn btn-outline" style="cursor:pointer; padding: 8px; font-size: 0.8rem; flex-shrink:0;">
+                                                    <i class="fa-solid fa-upload"></i> <input type="file" accept="image/*" style="display:none" onchange="handleSiteImageUpload(this, 'cfgVp3Img', 'previewVp3Img')">
+                                                </label>
+                                                <input type="text" id="cfgVp3Img" placeholder="URL da Foto" oninput="updatePreview('previewVp3Img', this.value)">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group"><label>Descrição</label><input type="text" id="cfgVp3Desc" placeholder="Aroma intenso..."></div>
+                                </div>
+
+                                <div class="card-edit-group">
+                                    <p class="card-edit-label">Produto 4</p>
+                                    <div class="form-row">
+                                        <div class="form-group"><label>Nome</label><input type="text" id="cfgVp4Name" placeholder="Agrião"></div>
+                                        <div class="form-group">
+                                            <label>Imagem</label>
+                                            <div style="display:flex; gap:10px; align-items:center;">
+                                                <img id="previewVp4Img" src="https://via.placeholder.com/40" style="width:40px; height:40px; border-radius:5px; object-fit:cover;">
+                                                <label class="btn btn-outline" style="cursor:pointer; padding: 8px; font-size: 0.8rem; flex-shrink:0;">
+                                                    <i class="fa-solid fa-upload"></i> <input type="file" accept="image/*" style="display:none" onchange="handleSiteImageUpload(this, 'cfgVp4Img', 'previewVp4Img')">
+                                                </label>
+                                                <input type="text" id="cfgVp4Img" placeholder="URL da Foto" oninput="updatePreview('previewVp4Img', this.value)">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group"><label>Descrição</label><input type="text" id="cfgVp4Desc" placeholder="Perfeito para saladas..."></div>
+                                </div>
+
+                                <div class="card-edit-group">
+                                    <p class="card-edit-label">Produto 5</p>
+                                    <div class="form-row">
+                                        <div class="form-group"><label>Nome</label><input type="text" id="cfgVp5Name" placeholder="Alface"></div>
+                                        <div class="form-group">
+                                            <label>Imagem</label>
+                                            <div style="display:flex; gap:10px; align-items:center;">
+                                                <img id="previewVp5Img" src="https://via.placeholder.com/40" style="width:40px; height:40px; border-radius:5px; object-fit:cover;">
+                                                <label class="btn btn-outline" style="cursor:pointer; padding: 8px; font-size: 0.8rem; flex-shrink:0;">
+                                                    <i class="fa-solid fa-upload"></i> <input type="file" accept="image/*" style="display:none" onchange="handleSiteImageUpload(this, 'cfgVp5Img', 'previewVp5Img')">
+                                                </label>
+                                                <input type="text" id="cfgVp5Img" placeholder="URL da Foto" oninput="updatePreview('previewVp5Img', this.value)">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group"><label>Descrição</label><input type="text" id="cfgVp5Desc" placeholder="Crespa, lisa e americana..."></div>
+                                </div>
+
+                                <div class="card-edit-group">
+                                    <p class="card-edit-label">Produto 6</p>
+                                    <div class="form-row">
+                                        <div class="form-group"><label>Nome</label><input type="text" id="cfgVp6Name" placeholder="Tomate"></div>
+                                        <div class="form-group">
+                                            <label>Imagem</label>
+                                            <div style="display:flex; gap:10px; align-items:center;">
+                                                <img id="previewVp6Img" src="https://via.placeholder.com/40" style="width:40px; height:40px; border-radius:5px; object-fit:cover;">
+                                                <label class="btn btn-outline" style="cursor:pointer; padding: 8px; font-size: 0.8rem; flex-shrink:0;">
+                                                    <i class="fa-solid fa-upload"></i> <input type="file" accept="image/*" style="display:none" onchange="handleSiteImageUpload(this, 'cfgVp6Img', 'previewVp6Img')">
+                                                </label>
+                                                <input type="text" id="cfgVp6Img" placeholder="URL da Foto" oninput="updatePreview('previewVp6Img', this.value)">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group"><label>Descrição</label><input type="text" id="cfgVp6Desc" placeholder="Vermelhinhos, suculentos..."></div>
+                                </div>
+
+                                <div class="form-group" style="margin-top: 15px;">
+                                    <label>Texto Extra (abaixo dos produtos)</label>
+                                    <input type="text" id="cfgProdExtra" placeholder="E muito mais: Rúcula, Cebolinha...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- DELIVERY BANNER -->
+                        <div class="accordion-section">
+                            <div class="accordion-header" onclick="toggleAccordion(this)">
+                                <span><i class="fa-solid fa-truck" style="color:var(--primary)"></i> Banner de Delivery</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="accordion-body">
+                                <div class="form-group">
+                                    <label>Título</label>
+                                    <input type="text" id="cfgDeliveryTitle" placeholder="Delivery Horta Iguatemi">
+                                </div>
+                                <div class="form-group">
+                                    <label>Texto</label>
+                                    <textarea id="cfgDeliveryText" rows="3" placeholder="Agora você pode receber verduras..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- RODAPE -->
+                        <div class="accordion-section">
+                            <div class="accordion-header" onclick="toggleAccordion(this)">
+                                <span><i class="fa-solid fa-shoe-prints" style="color:#64748b"></i> Rodapé</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="accordion-body">
+                                <div class="form-group">
+                                    <label>Texto do Rodapé</label>
+                                    <input type="text" id="cfgFooterText" placeholder="Mais de 20 anos produzindo qualidade...">
+                                    <small>Use &lt;br&gt; para quebra de linha.</small>
+                                </div>
+                            </div>
                         </div>
                         
                         <div style="margin-top: 30px; text-align: right;">
-                            <button type="submit" class="btn btn-primary" id="saveSiteConfigBtn"><i class="fa-solid fa-save"></i> Salvar Alterações do Site</button>
+                            <button type="submit" class="btn btn-primary btn-save-site" id="saveSiteConfigBtn"><i class="fa-solid fa-save"></i> Salvar Todas as Alterações</button>
                         </div>
                     </form>
                 </div>

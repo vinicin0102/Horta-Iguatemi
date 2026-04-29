@@ -689,7 +689,7 @@
         <div class="blob-2"></div>
         <div class="container">
             <div class="hero-text reveal">
-                <div class="section-tag" style="background: rgba(76, 175, 80, 0.15);">Entrega Rápida em Sorocaba</div>
+                <div class="section-tag" id="dyn-hero-tag" style="background: rgba(76, 175, 80, 0.15);">Entrega Rápida em Sorocaba</div>
                 <h1 id="dyn-hero-title">Hortifruti Fresco Direto da <span>Horta</span> para Sua Casa</h1>
                 <p id="dyn-hero-sub">Verduras e legumes colhidos no mesmo dia, com mais sabor, qualidade e entrega rápida em Sorocaba e região.</p>
                 <a href="catalogo/index.html" class="btn btn-primary">
@@ -698,14 +698,14 @@
             </div>
             <div class="hero-image reveal">
                 <!-- Using a high-quality placeholder for the hero image -->
-                <img src="images/Unknown-3.jpeg" alt="Verduras frescas, horta natural" onerror="this.src='https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                <img id="dyn-hero-img" src="images/Unknown-3.jpeg" alt="Verduras frescas, horta natural" onerror="this.src='https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
                 <div class="floating-badge">
                     <div class="badge-icon">
                         <i class="fa-solid fa-truck-fast"></i>
                     </div>
                     <div class="badge-text">
-                        <p>Delivery Rápido</p>
-                        <span>Sorocaba e Região</span>
+                        <p id="dyn-badge-title">Delivery Rápido</p>
+                        <span id="dyn-badge-sub">Sorocaba e Região</span>
                     </div>
                 </div>
             </div>
@@ -717,10 +717,10 @@
         <div class="container">
             <div class="about-image reveal">
                 <!-- Using a high-quality placeholder for the about image -->
-                <img src="images/Unknown-1.jpeg" alt="Família trabalhando na horta" onerror="this.src='https://images.unsplash.com/photo-1595856723223-9366e045c71b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                <img id="dyn-about-img" src="images/Unknown-1.jpeg" alt="Família trabalhando na horta" onerror="this.src='https://images.unsplash.com/photo-1595856723223-9366e045c71b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
             </div>
             <div class="about-text reveal">
-                <div class="section-tag">Nossa História</div>
+                <div class="section-tag" id="dyn-about-tag">Nossa História</div>
                 <h2 class="section-title" id="dyn-about-title">Tradição de mais de 20 anos em Sorocaba</h2>
                 <div id="dyn-about-text">
                     <p>Na <strong>Horta Iguatemi</strong>, estamos há mais de 20 anos no ramo, trabalhando em família para produzir, com muito amor, verduras e legumes de alta qualidade em Sorocaba e região.</p>
@@ -735,29 +735,29 @@
     <!-- Benefícios Section -->
     <section id="beneficios" class="benefits">
         <div class="container">
-            <div class="section-tag">Por que escolher a Horta Iguatemi?</div>
-            <h2 class="section-title">Benefícios de comprar direto do produtor</h2>
+            <div class="section-tag" id="dyn-ben-tag">Por que escolher a Horta Iguatemi?</div>
+            <h2 class="section-title" id="dyn-ben-title">Benefícios de comprar direto do produtor</h2>
             
             <div class="benefits-grid">
                 <div class="benefit-card reveal">
                     <div class="benefit-icon"><i class="fa-solid fa-sun"></i></div>
-                    <h3>Colhidos no Mesmo Dia</h3>
-                    <p>Garantia de frescor absoluto com produtos colhidos no dia da entrega.</p>
+                    <h3 id="dyn-ben1-title">Colhidos no Mesmo Dia</h3>
+                    <p id="dyn-ben1-text">Garantia de frescor absoluto com produtos colhidos no dia da entrega.</p>
                 </div>
                 <div class="benefit-card reveal">
                     <div class="benefit-icon"><i class="fa-solid fa-leaf"></i></div>
-                    <h3>Fertilizantes Biológicos</h3>
-                    <p>Cultivo sustentável que respeita o meio ambiente e a sua saúde.</p>
+                    <h3 id="dyn-ben2-title">Fertilizantes Biológicos</h3>
+                    <p id="dyn-ben2-text">Cultivo sustentável que respeita o meio ambiente e a sua saúde.</p>
                 </div>
                 <div class="benefit-card reveal">
                     <div class="benefit-icon"><i class="fa-solid fa-handshake"></i></div>
-                    <h3>Sem Atravessadores</h3>
-                    <p>Direto da nossa horta para a sua casa, com preços justos e mais qualidade.</p>
+                    <h3 id="dyn-ben3-title">Sem Atravessadores</h3>
+                    <p id="dyn-ben3-text">Direto da nossa horta para a sua casa, com preços justos e mais qualidade.</p>
                 </div>
                 <div class="benefit-card reveal">
                     <div class="benefit-icon"><i class="fa-solid fa-motorcycle"></i></div>
-                    <h3>Entrega Rápida</h3>
-                    <p>Agilidade no delivery para Sorocaba e região, mantendo o frescor.</p>
+                    <h3 id="dyn-ben4-title">Entrega Rápida</h3>
+                    <p id="dyn-ben4-text">Agilidade no delivery para Sorocaba e região, mantendo o frescor.</p>
                 </div>
             </div>
         </div>
@@ -766,29 +766,29 @@
     <!-- Como Funciona Section -->
     <section id="como-funciona" class="how-it-works">
         <div class="container">
-            <div class="section-tag">Praticidade</div>
-            <h2 class="section-title">Como Funciona</h2>
+            <div class="section-tag" id="dyn-steps-tag">Praticidade</div>
+            <h2 class="section-title" id="dyn-steps-title">Como Funciona</h2>
             
             <div class="steps-container">
                 <div class="step reveal" style="transition-delay: 0.1s;">
                     <div class="step-number">1</div>
-                    <h3>Escolha seus produtos</h3>
-                    <p>Confira nossa lista de verduras e legumes frescos.</p>
+                    <h3 id="dyn-step1-title">Escolha seus produtos</h3>
+                    <p id="dyn-step1-text">Confira nossa lista de verduras e legumes frescos.</p>
                 </div>
                 <div class="step reveal" style="transition-delay: 0.2s;">
                     <div class="step-number">2</div>
-                    <h3>Faça o pedido</h3>
-                    <p>Confira nossa lista e faça seu pedido diretamente pelo site.</p>
+                    <h3 id="dyn-step2-title">Faça o pedido</h3>
+                    <p id="dyn-step2-text">Confira nossa lista e faça seu pedido diretamente pelo site.</p>
                 </div>
                 <div class="step reveal" style="transition-delay: 0.3s;">
                     <div class="step-number">3</div>
-                    <h3>Colheita no dia</h3>
-                    <p>A Horta Iguatemi colhe os produtos fresquinhos para você.</p>
+                    <h3 id="dyn-step3-title">Colheita no dia</h3>
+                    <p id="dyn-step3-text">A Horta Iguatemi colhe os produtos fresquinhos para você.</p>
                 </div>
                 <div class="step reveal" style="transition-delay: 0.4s;">
                     <div class="step-number">4</div>
-                    <h3>Entregamos</h3>
-                    <p>Receba na sua casa com todo conforto e praticidade.</p>
+                    <h3 id="dyn-step4-title">Entregamos</h3>
+                    <p id="dyn-step4-text">Receba na sua casa com todo conforto e praticidade.</p>
                 </div>
             </div>
         </div>
@@ -799,8 +799,8 @@
         <div class="container">
             <div class="products-header reveal">
                 <div>
-                    <div class="section-tag">Frescor Garantido</div>
-                    <h2 class="section-title" style="margin-bottom: 0;">Produtos Disponíveis</h2>
+                    <div class="section-tag" id="dyn-prod-tag">Frescor Garantido</div>
+                    <h2 class="section-title" id="dyn-prod-title" style="margin-bottom: 0;">Produtos Disponíveis</h2>
                 </div>
                 <a href="catalogo/index.html" class="btn btn-outline">
                     <i class="fa-solid fa-globe"></i> Visitar nosso site
@@ -811,76 +811,76 @@
                 <!-- Using the user's image names assuming they are placed in images/ folder. Adding Unsplash fallbacks just in case. -->
                 <div class="product-card reveal">
                     <div class="product-img">
-                        <div class="product-tag">Mais Vendido</div>
-                        <img src="images/couve-4.jpeg" alt="Couve Fresca" onerror="this.src='https://images.unsplash.com/photo-1528640107297-cdd1b6a32d66?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'">
+                        <div class="product-tag" id="dyn-vp1-tag">Mais Vendido</div>
+                        <img id="dyn-vp1-img" src="images/couve-4.jpeg" alt="Couve Fresca" onerror="this.src='https://images.unsplash.com/photo-1528640107297-cdd1b6a32d66?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'">
                     </div>
                     <div class="product-info">
-                        <h3>Couve</h3>
-                        <p>Folhas verdes e crocantes, ideais para refogados e sucos.</p>
+                        <h3 id="dyn-vp1-name">Couve</h3>
+                        <p id="dyn-vp1-desc">Folhas verdes e crocantes, ideais para refogados e sucos.</p>
                     </div>
                 </div>
 
                 <div class="product-card reveal">
                     <div class="product-img">
-                        <img src="images/Unknown-2.jpeg" alt="Beterraba" onerror="this.src='https://images.unsplash.com/photo-1568584711075-3d021a7c3ca3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'">
+                        <img id="dyn-vp2-img" src="images/Unknown-2.jpeg" alt="Beterraba" onerror="this.src='https://images.unsplash.com/photo-1568584711075-3d021a7c3ca3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'">
                     </div>
                     <div class="product-info">
-                        <h3>Beterraba</h3>
-                        <p>Fresquinha e cheia de nutrientes, cultivada com amor.</p>
+                        <h3 id="dyn-vp2-name">Beterraba</h3>
+                        <p id="dyn-vp2-desc">Fresquinha e cheia de nutrientes, cultivada com amor.</p>
                     </div>
                 </div>
 
                 <div class="product-card reveal">
                     <div class="product-img">
-                        <img src="images/Unknown.jpeg" alt="Hortelã" onerror="this.src='https://images.unsplash.com/photo-1600077106724-946750eeaf3c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'">
+                        <img id="dyn-vp3-img" src="images/Unknown.jpeg" alt="Hortelã" onerror="this.src='https://images.unsplash.com/photo-1600077106724-946750eeaf3c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'">
                     </div>
                     <div class="product-info">
-                        <h3>Hortelã</h3>
-                        <p>Aroma intenso e frescor inigualável para suas receitas.</p>
+                        <h3 id="dyn-vp3-name">Hortelã</h3>
+                        <p id="dyn-vp3-desc">Aroma intenso e frescor inigualável para suas receitas.</p>
                     </div>
                 </div>
 
                 <div class="product-card reveal">
                     <div class="product-img">
-                        <img src="images/agriao.jpeg" alt="Agrião" onerror="this.src='https://images.unsplash.com/photo-1626200225134-c4aeb53c15eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'">
+                        <img id="dyn-vp4-img" src="images/agriao.jpeg" alt="Agrião" onerror="this.src='https://images.unsplash.com/photo-1626200225134-c4aeb53c15eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'">
                     </div>
                     <div class="product-info">
-                        <h3>Agrião</h3>
-                        <p>Perfeito para saladas e refogados saudáveis.</p>
+                        <h3 id="dyn-vp4-name">Agrião</h3>
+                        <p id="dyn-vp4-desc">Perfeito para saladas e refogados saudáveis.</p>
                     </div>
                 </div>
                 
                 <!-- Additional generic products mentioned in the list -->
                 <div class="product-card reveal">
                     <div class="product-img">
-                        <img src="images/alface.jpeg" alt="Alface" onerror="this.src='https://images.unsplash.com/photo-1622206151226-18ca2c9e7a16?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'">
+                        <img id="dyn-vp5-img" src="images/alface.jpeg" alt="Alface" onerror="this.src='https://images.unsplash.com/photo-1622206151226-18ca2c9e7a16?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'">
                     </div>
                     <div class="product-info">
-                        <h3>Alface</h3>
-                        <p>Crespa, lisa e americana. Extremamente fresca.</p>
+                        <h3 id="dyn-vp5-name">Alface</h3>
+                        <p id="dyn-vp5-desc">Crespa, lisa e americana. Extremamente fresca.</p>
                     </div>
                 </div>
 
                 <div class="product-card reveal">
                     <div class="product-img">
-                        <img src="images/tomate.jpg" alt="Tomate" onerror="this.src='https://images.unsplash.com/photo-1592924357228-91a4daadcfea?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'">
+                        <img id="dyn-vp6-img" src="images/tomate.jpg" alt="Tomate" onerror="this.src='https://images.unsplash.com/photo-1592924357228-91a4daadcfea?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'">
                     </div>
                     <div class="product-info">
-                        <h3>Tomate</h3>
-                        <p>Vermelhinhos, suculentos e cheios de sabor.</p>
+                        <h3 id="dyn-vp6-name">Tomate</h3>
+                        <p id="dyn-vp6-desc">Vermelhinhos, suculentos e cheios de sabor.</p>
                     </div>
                 </div>
             </div>
             
-            <p style="text-align: center; margin-top: 40px; color: var(--text-body);">E muito mais: Rúcula, Cebolinha, Salsinha, Pepino, Abobrinha e Legumes variados.</p>
+            <p id="dyn-prod-extra" style="text-align: center; margin-top: 40px; color: var(--text-body);">E muito mais: Rúcula, Cebolinha, Salsinha, Pepino, Abobrinha e Legumes variados.</p>
         </div>
     </section>
 
     <!-- Delivery Banner -->
     <section class="delivery-banner">
         <div class="container reveal">
-            <h2>Delivery Horta Iguatemi</h2>
-            <p>Agora você pode receber verduras e legumes frescos sem sair de casa. A Horta Iguatemi colhe no mesmo dia e entrega direto para você em Sorocaba e região.</p>
+            <h2 id="dyn-delivery-title">Delivery Horta Iguatemi</h2>
+            <p id="dyn-delivery-text">Agora você pode receber verduras e legumes frescos sem sair de casa. A Horta Iguatemi colhe no mesmo dia e entrega direto para você em Sorocaba e região.</p>
             <a href="catalogo/index.html" class="btn btn-primary" style="background-color: var(--white); color: var(--primary);">
                 <i class="fa-solid fa-globe"></i> Visitar nosso site
             </a>
@@ -893,7 +893,7 @@
             <a href="#" class="footer-logo">
                 <i class="fa-solid fa-leaf"></i> Horta Iguatemi
             </a>
-            <p class="footer-text">Mais de 20 anos produzindo qualidade.<br>Produtos frescos direto da horta para sua mesa.</p>
+            <p class="footer-text" id="dyn-footer-text">Mais de 20 anos produzindo qualidade.<br>Produtos frescos direto da horta para sua mesa.</p>
             
             <div class="footer-bottom">
                 <p>&copy; 2024 Horta Iguatemi. Todos os direitos reservados.</p>
@@ -927,20 +927,86 @@
                 
                 if (res.ok) {
                     const configs = await res.json();
-                    const getConfig = (chave) => {
+                    const g = (chave) => {
                         const item = configs.find(c => c.chave === chave);
                         return item ? item.valor : null;
                     };
                     
-                    const heroTitle = getConfig('hero_title');
-                    const heroSub = getConfig('hero_subtitle');
-                    const aboutTitle = getConfig('about_title');
-                    const aboutText = getConfig('about_text');
+                    // Mapeamento: [chave_do_banco, id_do_elemento, tipo (text/html/src)]
+                    const MAP = [
+                        // Hero
+                        ['hero_tag', 'dyn-hero-tag', 'text'],
+                        ['hero_title', 'dyn-hero-title', 'html'],
+                        ['hero_subtitle', 'dyn-hero-sub', 'text'],
+                        ['hero_img', 'dyn-hero-img', 'src'],
+                        ['badge_title', 'dyn-badge-title', 'text'],
+                        ['badge_sub', 'dyn-badge-sub', 'text'],
+                        // Sobre
+                        ['about_tag', 'dyn-about-tag', 'text'],
+                        ['about_img', 'dyn-about-img', 'src'],
+                        ['about_title', 'dyn-about-title', 'text'],
+                        ['about_text', 'dyn-about-text', 'html'],
+                        // Benefícios
+                        ['ben_tag', 'dyn-ben-tag', 'text'],
+                        ['ben_title', 'dyn-ben-title', 'text'],
+                        ['ben1_title', 'dyn-ben1-title', 'text'],
+                        ['ben1_text', 'dyn-ben1-text', 'text'],
+                        ['ben2_title', 'dyn-ben2-title', 'text'],
+                        ['ben2_text', 'dyn-ben2-text', 'text'],
+                        ['ben3_title', 'dyn-ben3-title', 'text'],
+                        ['ben3_text', 'dyn-ben3-text', 'text'],
+                        ['ben4_title', 'dyn-ben4-title', 'text'],
+                        ['ben4_text', 'dyn-ben4-text', 'text'],
+                        // Como Funciona
+                        ['steps_tag', 'dyn-steps-tag', 'text'],
+                        ['steps_title', 'dyn-steps-title', 'text'],
+                        ['step1_title', 'dyn-step1-title', 'text'],
+                        ['step1_text', 'dyn-step1-text', 'text'],
+                        ['step2_title', 'dyn-step2-title', 'text'],
+                        ['step2_text', 'dyn-step2-text', 'text'],
+                        ['step3_title', 'dyn-step3-title', 'text'],
+                        ['step3_text', 'dyn-step3-text', 'text'],
+                        ['step4_title', 'dyn-step4-title', 'text'],
+                        ['step4_text', 'dyn-step4-text', 'text'],
+                        // Vitrine Produtos
+                        ['prod_tag', 'dyn-prod-tag', 'text'],
+                        ['prod_title', 'dyn-prod-title', 'text'],
+                        ['vp1_tag', 'dyn-vp1-tag', 'text'],
+                        ['vp1_name', 'dyn-vp1-name', 'text'],
+                        ['vp1_img', 'dyn-vp1-img', 'src'],
+                        ['vp1_desc', 'dyn-vp1-desc', 'text'],
+                        ['vp2_name', 'dyn-vp2-name', 'text'],
+                        ['vp2_img', 'dyn-vp2-img', 'src'],
+                        ['vp2_desc', 'dyn-vp2-desc', 'text'],
+                        ['vp3_name', 'dyn-vp3-name', 'text'],
+                        ['vp3_img', 'dyn-vp3-img', 'src'],
+                        ['vp3_desc', 'dyn-vp3-desc', 'text'],
+                        ['vp4_name', 'dyn-vp4-name', 'text'],
+                        ['vp4_img', 'dyn-vp4-img', 'src'],
+                        ['vp4_desc', 'dyn-vp4-desc', 'text'],
+                        ['vp5_name', 'dyn-vp5-name', 'text'],
+                        ['vp5_img', 'dyn-vp5-img', 'src'],
+                        ['vp5_desc', 'dyn-vp5-desc', 'text'],
+                        ['vp6_name', 'dyn-vp6-name', 'text'],
+                        ['vp6_img', 'dyn-vp6-img', 'src'],
+                        ['vp6_desc', 'dyn-vp6-desc', 'text'],
+                        ['prod_extra', 'dyn-prod-extra', 'text'],
+                        // Delivery Banner
+                        ['delivery_title', 'dyn-delivery-title', 'text'],
+                        ['delivery_text', 'dyn-delivery-text', 'text'],
+                        // Footer
+                        ['footer_text', 'dyn-footer-text', 'html'],
+                    ];
                     
-                    if(heroTitle) document.getElementById('dyn-hero-title').innerHTML = heroTitle;
-                    if(heroSub) document.getElementById('dyn-hero-sub').innerText = heroSub;
-                    if(aboutTitle) document.getElementById('dyn-about-title').innerText = aboutTitle;
-                    if(aboutText) document.getElementById('dyn-about-text').innerHTML = aboutText;
+                    MAP.forEach(([chave, id, tipo]) => {
+                        const val = g(chave);
+                        const el = document.getElementById(id);
+                        if (val && el) {
+                            if (tipo === 'src') el.src = val;
+                            else if (tipo === 'html') el.innerHTML = val;
+                            else el.innerText = val;
+                        }
+                    });
                 }
             } catch (e) {
                 console.log("Configs personalizadas não carregadas, mantendo padrão.");

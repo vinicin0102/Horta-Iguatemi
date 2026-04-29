@@ -225,6 +225,7 @@ document.getElementById('checkoutBtn').addEventListener('click', () => {
     });
 
     message += `\n*Total: R$ ${total.toFixed(2).replace('.', ',')}*`;
+    message += `\n\n_Lembrando: Pedidos são entregues no dia seguinte!_`;
     message += `\n\n_Pedido feito via Catálogo Digital Horta Iguatemi_`;
 
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;

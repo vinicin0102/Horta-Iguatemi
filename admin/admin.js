@@ -127,6 +127,80 @@ async function migrateLocalToSupabase() {
     }
 }
 
+// --- MAPEAMENTO COMPLETO DE TODAS AS CONFIGURAÇÕES ---
+const CONFIG_MAP = [
+    // WhatsApp
+    { chave: 'whatsapp', id: 'cfgWhatsapp', fallback: '5515999999999' },
+    // Hero
+    { chave: 'hero_tag', id: 'cfgHeroTag', fallback: 'Entrega Rápida em Sorocaba' },
+    { chave: 'hero_title', id: 'cfgHeroTitle', fallback: 'Hortifruti Fresco Direto da <span>Horta</span> para Sua Casa' },
+    { chave: 'hero_subtitle', id: 'cfgHeroSub', fallback: 'Verduras e legumes colhidos no mesmo dia, com mais sabor, qualidade e entrega rápida em Sorocaba e região.' },
+    { chave: 'hero_img', id: 'cfgHeroImg', fallback: 'images/Unknown-3.jpeg' },
+    { chave: 'badge_title', id: 'cfgBadgeTitle', fallback: 'Delivery Rápido' },
+    { chave: 'badge_sub', id: 'cfgBadgeSub', fallback: 'Sorocaba e Região' },
+    // Sobre
+    { chave: 'about_tag', id: 'cfgAboutTag', fallback: 'Nossa História' },
+    { chave: 'about_img', id: 'cfgAboutImg', fallback: 'images/Unknown-1.jpeg' },
+    { chave: 'about_title', id: 'cfgAboutTitle', fallback: 'Tradição de mais de 20 anos em Sorocaba' },
+    { chave: 'about_text', id: 'cfgAboutText', fallback: '' },
+    // Benefícios
+    { chave: 'ben_tag', id: 'cfgBenTag', fallback: 'Por que escolher a Horta Iguatemi?' },
+    { chave: 'ben_title', id: 'cfgBenTitle', fallback: 'Benefícios de comprar direto do produtor' },
+    { chave: 'ben1_title', id: 'cfgBen1Title', fallback: 'Colhidos no Mesmo Dia' },
+    { chave: 'ben1_text', id: 'cfgBen1Text', fallback: 'Garantia de frescor absoluto com produtos colhidos no dia da entrega.' },
+    { chave: 'ben2_title', id: 'cfgBen2Title', fallback: 'Fertilizantes Biológicos' },
+    { chave: 'ben2_text', id: 'cfgBen2Text', fallback: 'Cultivo sustentável que respeita o meio ambiente e a sua saúde.' },
+    { chave: 'ben3_title', id: 'cfgBen3Title', fallback: 'Sem Atravessadores' },
+    { chave: 'ben3_text', id: 'cfgBen3Text', fallback: 'Direto da nossa horta para a sua casa, com preços justos e mais qualidade.' },
+    { chave: 'ben4_title', id: 'cfgBen4Title', fallback: 'Entrega Rápida' },
+    { chave: 'ben4_text', id: 'cfgBen4Text', fallback: 'Agilidade no delivery para Sorocaba e região, mantendo o frescor.' },
+    // Como Funciona
+    { chave: 'steps_tag', id: 'cfgStepsTag', fallback: 'Praticidade' },
+    { chave: 'steps_title', id: 'cfgStepsTitle', fallback: 'Como Funciona' },
+    { chave: 'step1_title', id: 'cfgStep1Title', fallback: 'Escolha seus produtos' },
+    { chave: 'step1_text', id: 'cfgStep1Text', fallback: 'Confira nossa lista de verduras e legumes frescos.' },
+    { chave: 'step2_title', id: 'cfgStep2Title', fallback: 'Faça o pedido' },
+    { chave: 'step2_text', id: 'cfgStep2Text', fallback: 'Confira nossa lista e faça seu pedido diretamente pelo site.' },
+    { chave: 'step3_title', id: 'cfgStep3Title', fallback: 'Colheita no dia' },
+    { chave: 'step3_text', id: 'cfgStep3Text', fallback: 'A Horta Iguatemi colhe os produtos fresquinhos para você.' },
+    { chave: 'step4_title', id: 'cfgStep4Title', fallback: 'Entregamos' },
+    { chave: 'step4_text', id: 'cfgStep4Text', fallback: 'Receba na sua casa com todo conforto e praticidade.' },
+    // Vitrine de Produtos
+    { chave: 'prod_tag', id: 'cfgProdTag', fallback: 'Frescor Garantido' },
+    { chave: 'prod_title', id: 'cfgProdTitle', fallback: 'Produtos Disponíveis' },
+    { chave: 'vp1_tag', id: 'cfgVp1Tag', fallback: 'Mais Vendido' },
+    { chave: 'vp1_name', id: 'cfgVp1Name', fallback: 'Couve' },
+    { chave: 'vp1_img', id: 'cfgVp1Img', fallback: 'images/couve-4.jpeg' },
+    { chave: 'vp1_desc', id: 'cfgVp1Desc', fallback: 'Folhas verdes e crocantes, ideais para refogados e sucos.' },
+    { chave: 'vp2_name', id: 'cfgVp2Name', fallback: 'Beterraba' },
+    { chave: 'vp2_img', id: 'cfgVp2Img', fallback: 'images/Unknown-2.jpeg' },
+    { chave: 'vp2_desc', id: 'cfgVp2Desc', fallback: 'Fresquinha e cheia de nutrientes, cultivada com amor.' },
+    { chave: 'vp3_name', id: 'cfgVp3Name', fallback: 'Hortelã' },
+    { chave: 'vp3_img', id: 'cfgVp3Img', fallback: 'images/Unknown.jpeg' },
+    { chave: 'vp3_desc', id: 'cfgVp3Desc', fallback: 'Aroma intenso e frescor inigualável para suas receitas.' },
+    { chave: 'vp4_name', id: 'cfgVp4Name', fallback: 'Agrião' },
+    { chave: 'vp4_img', id: 'cfgVp4Img', fallback: 'images/agriao.jpeg' },
+    { chave: 'vp4_desc', id: 'cfgVp4Desc', fallback: 'Perfeito para saladas e refogados saudáveis.' },
+    { chave: 'vp5_name', id: 'cfgVp5Name', fallback: 'Alface' },
+    { chave: 'vp5_img', id: 'cfgVp5Img', fallback: 'images/alface.jpeg' },
+    { chave: 'vp5_desc', id: 'cfgVp5Desc', fallback: 'Crespa, lisa e americana. Extremamente fresca.' },
+    { chave: 'vp6_name', id: 'cfgVp6Name', fallback: 'Tomate' },
+    { chave: 'vp6_img', id: 'cfgVp6Img', fallback: 'images/tomate.jpg' },
+    { chave: 'vp6_desc', id: 'cfgVp6Desc', fallback: 'Vermelhinhos, suculentos e cheios de sabor.' },
+    { chave: 'prod_extra', id: 'cfgProdExtra', fallback: 'E muito mais: Rúcula, Cebolinha, Salsinha, Pepino, Abobrinha e Legumes variados.' },
+    // Delivery Banner
+    { chave: 'delivery_title', id: 'cfgDeliveryTitle', fallback: 'Delivery Horta Iguatemi' },
+    { chave: 'delivery_text', id: 'cfgDeliveryText', fallback: 'Agora você pode receber verduras e legumes frescos sem sair de casa. A Horta Iguatemi colhe no mesmo dia e entrega direto para você em Sorocaba e região.' },
+    // Rodapé
+    { chave: 'footer_text', id: 'cfgFooterText', fallback: 'Mais de 20 anos produzindo qualidade.<br>Produtos frescos direto da horta para sua mesa.' },
+];
+
+// Accordion toggle
+window.toggleAccordion = function(header) {
+    const section = header.parentElement;
+    section.classList.toggle('open');
+};
+
 // --- API SUPABASE (CONFIGURAÇÕES DO SITE) ---
 async function fetchSiteConfigSupabase() {
     try {
@@ -141,14 +215,39 @@ async function fetchSiteConfigSupabase() {
             const configs = await res.json();
             const getConfig = (chave) => {
                 const item = configs.find(c => c.chave === chave);
-                return item ? item.valor : '';
+                return item ? item.valor : null;
             };
             
-            document.getElementById('cfgWhatsapp').value = getConfig('whatsapp') || '5515999999999';
-            document.getElementById('cfgHeroTitle').value = getConfig('hero_title') || 'Hortifruti Fresco Direto da <span>Horta</span> para Sua Casa';
-            document.getElementById('cfgHeroSub').value = getConfig('hero_subtitle') || 'Verduras e legumes colhidos no mesmo dia, com mais sabor, qualidade e entrega rápida em Sorocaba e região.';
-            document.getElementById('cfgAboutTitle').value = getConfig('about_title') || 'Tradição de mais de 20 anos em Sorocaba';
-            document.getElementById('cfgAboutText').value = getConfig('about_text') || 'Na <strong>Horta Iguatemi</strong>, estamos há mais de 20 anos no ramo, trabalhando em família para produzir, com muito amor, verduras e legumes de alta qualidade em Sorocaba e região.<br><br>Ao longo dessas duas décadas, conquistamos a confiança dos nossos clientes oferecendo produtos sempre frescos, saborosos e cultivados com responsabilidade. Todos os itens são <strong>colhidos no mesmo dia da venda</strong>, garantindo mais qualidade, mais durabilidade e muito mais sabor para a sua mesa.<br><br>Utilizamos apenas fertilizantes biológicos em nossa produção, respeitando a natureza e cuidando da saúde da sua família.<br><br>E agora, dando mais um passo para facilitar o seu dia a dia, a Horta Iguatemi está iniciando seu <strong>serviço de delivery</strong>. Receba em casa produtos frescos, colhidos no dia, diretamente da nossa horta — com a mesma qualidade de sempre, mas com muito mais praticidade.';
+            CONFIG_MAP.forEach(cfg => {
+                const el = document.getElementById(cfg.id);
+                if (el) {
+                    const val = getConfig(cfg.chave) || cfg.fallback;
+                    el.value = val;
+                    // Atualizar preview de imagem se existir
+                    if (cfg.chave.includes('img') || cfg.chave.includes('vp')) {
+                        let previewId = '';
+                        if(cfg.chave === 'hero_img') previewId = 'previewHeroImg';
+                        if(cfg.chave === 'about_img') previewId = 'previewAboutImg';
+                        if(cfg.chave === 'vp1_img') previewId = 'previewVp1Img';
+                        if(cfg.chave === 'vp2_img') previewId = 'previewVp2Img';
+                        if(cfg.chave === 'vp3_img') previewId = 'previewVp3Img';
+                        if(cfg.chave === 'vp4_img') previewId = 'previewVp4Img';
+                        if(cfg.chave === 'vp5_img') previewId = 'previewVp5Img';
+                        if(cfg.chave === 'vp6_img') previewId = 'previewVp6Img';
+                        if(previewId) {
+                            const preview = document.getElementById(previewId);
+                            if(preview) {
+                                let imgSrc = val;
+                                // Ajustar caminhos relativos para funcionar dentro da pasta admin/
+                                if (imgSrc && imgSrc.startsWith('images/')) {
+                                    imgSrc = '../' + imgSrc;
+                                }
+                                preview.src = imgSrc;
+                            }
+                        }
+                    }
+                }
+            });
         }
     } catch (e) {
         console.error("Erro ao carregar configurações", e);
@@ -161,13 +260,10 @@ document.getElementById('siteConfigForm').addEventListener('submit', async (e) =
     btn.disabled = true;
     btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Salvando...';
     
-    const payload = [
-        { chave: 'whatsapp', valor: document.getElementById('cfgWhatsapp').value },
-        { chave: 'hero_title', valor: document.getElementById('cfgHeroTitle').value },
-        { chave: 'hero_subtitle', valor: document.getElementById('cfgHeroSub').value },
-        { chave: 'about_title', valor: document.getElementById('cfgAboutTitle').value },
-        { chave: 'about_text', valor: document.getElementById('cfgAboutText').value }
-    ];
+    const payload = CONFIG_MAP.map(cfg => ({
+        chave: cfg.chave,
+        valor: document.getElementById(cfg.id).value
+    }));
     
     try {
         const res = await fetch(`${SUPABASE_URL}/rest/v1/configuracoes`, {
@@ -182,7 +278,7 @@ document.getElementById('siteConfigForm').addEventListener('submit', async (e) =
         });
         
         if (res.ok) {
-            alert("Configurações salvas com sucesso!");
+            alert("✅ Todas as configurações foram salvas com sucesso!");
         } else {
             throw new Error(`Erro: Você precisa criar a tabela 'configuracoes' primeiro!`);
         }
@@ -190,9 +286,34 @@ document.getElementById('siteConfigForm').addEventListener('submit', async (e) =
         alert(err.message);
     } finally {
         btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-save"></i> Salvar Alterações do Site';
+        btn.innerHTML = '<i class="fa-solid fa-save"></i> Salvar Todas as Alterações';
     }
 });
+
+// Função para tratar upload de imagem no editor do site
+window.handleSiteImageUpload = async function(input, targetInputId, previewId) {
+    const file = input.files[0];
+    if (file) {
+        try {
+            const dataUrl = await uploadImage(file);
+            document.getElementById(targetInputId).value = dataUrl;
+            document.getElementById(previewId).src = dataUrl;
+        } catch (e) {
+            alert("Erro ao ler imagem: " + e.message);
+        }
+    }
+};
+
+window.updatePreview = function(previewId, val) {
+    const preview = document.getElementById(previewId);
+    if(preview) {
+        let imgSrc = val;
+        if (imgSrc && imgSrc.startsWith('images/')) {
+            imgSrc = '../' + imgSrc;
+        }
+        preview.src = imgSrc || 'https://via.placeholder.com/120';
+    }
+}
 
 // --- RENDERIZAÇÃO DA TABELA ---
 function renderTable() {
